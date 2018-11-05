@@ -4,8 +4,8 @@ import UIKit
 class AppDelegate: UIResponder,
     UIApplicationDelegate, SPTAppRemoteDelegate {
 
-    fileprivate let redirectUri = URL(string:"comspotifytestsdk://")!
-    fileprivate let clientIdentifier = "089d841ccc194c10a77afad9e1c11d54"
+    fileprivate let redirectUri = URL(string:"ahkrs://github.com/sage-hmc/jukebox-project/callback/")! //this seems problematic
+    fileprivate let clientIdentifier = "bab0c71f056c4b3fa76a92c9900c322c"
     fileprivate let name = "Now Playing View"
 
     // keys
