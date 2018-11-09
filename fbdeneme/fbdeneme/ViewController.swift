@@ -9,6 +9,10 @@
 import UIKit
 import Firebase
 
+var myIndex = 0
+var mySongArray = ["song1","song2"]
+var myScoreArray = ["score1","score2"]
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var partyField: UITextField!
@@ -105,6 +109,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             done(true)
         }
         return UISwipeActionsConfiguration(actions: [downvote])
+    }
+    
+//    Function for handling song tap for non currently-playing songs
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        myIndex = indexPath.row
+        performSegue(withIdentifier: "SongInfoSeque", sender: self)
     }
 
 }
