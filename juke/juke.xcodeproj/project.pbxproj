@@ -13,6 +13,7 @@
 		52E7BE652177F54F00AE0B6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52E7BE642177F54F00AE0B6B /* Assets.xcassets */; };
 		52E7BE682177F54F00AE0B6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52E7BE662177F54F00AE0B6B /* LaunchScreen.storyboard */; };
 		52E9798421812A6A00573D48 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E9798321812A6900573D48 /* SpotifyiOS.framework */; };
+		6F9B8CFC219531F9006F5352 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9B8CFB219531F9006F5352 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		52E7BE692177F54F00AE0B6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52E9798321812A6900573D48 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		52E979BD21812D8D00573D48 /* SPTLoginSampleAppSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SPTLoginSampleAppSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		6F9B8CFB219531F9006F5352 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				52E7BE5D2177F54E00AE0B6B /* AppDelegate.swift */,
 				52E7BE5F2177F54E00AE0B6B /* ViewController.swift */,
 				52E7BE612177F54E00AE0B6B /* Main.storyboard */,
+				6F9B8CFB219531F9006F5352 /* TableViewController.swift */,
 				52E7BE642177F54F00AE0B6B /* Assets.xcassets */,
 				52E7BE662177F54F00AE0B6B /* LaunchScreen.storyboard */,
 				52E7BE692177F54F00AE0B6B /* Info.plist */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52E7BE602177F54E00AE0B6B /* ViewController.swift in Sources */,
+				6F9B8CFC219531F9006F5352 /* TableViewController.swift in Sources */,
 				52E7BE5E2177F54E00AE0B6B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
