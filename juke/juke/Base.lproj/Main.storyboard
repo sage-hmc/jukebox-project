@@ -38,7 +38,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Continue"/>
                                 <connections>
-                                    <segue destination="OAS-cL-4R6" kind="presentation" id="DfP-zw-NZI"/>
+                                    <segue destination="Dey-QT-ufm" kind="presentation" id="lIN-Af-o6w"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -53,8 +53,7 @@
         <!--Add Song-->
         <scene sceneID="5cF-ez-haS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f02-60-aUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="OAS-cL-4R6" userLabel="Add Song" customClass="TableViewController" customModule="juke" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OAS-cL-4R6" userLabel="Add Song" customClass="AddSongViewController" customModule="juke" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="emT-kd-Twu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,7 +71,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="BACK TO QUEUE"/>
                                 <connections>
-                                    <segue destination="Dey-QT-ufm" kind="presentation" id="fKp-GE-h5f"/>
+                                    <segue destination="Dey-QT-ufm" kind="presentation" id="Pce-8b-cTk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -83,6 +82,7 @@
                         <outlet property="searchDisplayController" destination="HBE-U7-eMo" id="8ve-C5-Vnb"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f02-60-aUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="HBE-U7-eMo">
                     <connections>
                         <outlet property="delegate" destination="OAS-cL-4R6" id="SST-Y8-mdY"/>
@@ -98,13 +98,30 @@
         <!--Song Info-->
         <scene sceneID="gHx-MA-hA6">
             <objects>
-                <viewController id="lvL-qC-fuB" userLabel="Song Info" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="aIq-tX-rPM">
+                <viewController id="lvL-qC-fuB" userLabel="Song Info" customClass="SongInfoViewController" customModule="juke" customModuleProvider="target" sceneMemberID="viewController">
+                    <visualEffectView key="view" opaque="NO" contentMode="scaleToFill" id="WnK-tt-oS1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="kX6-bz-ewu"/>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0vd-60-bPU">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="332-5b-Oef">
+                                    <rect key="frame" x="67.5" y="213.5" width="240" height="240"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="240" id="BoT-ov-ziR"/>
+                                        <constraint firstAttribute="width" constant="240" id="o14-bV-oOP"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="332-5b-Oef" firstAttribute="centerY" secondItem="0vd-60-bPU" secondAttribute="centerY" id="RGr-Jt-4OU"/>
+                                <constraint firstItem="332-5b-Oef" firstAttribute="centerX" secondItem="0vd-60-bPU" secondAttribute="centerX" id="ycp-Xb-RvG"/>
+                            </constraints>
+                        </view>
+                        <blurEffect style="light"/>
+                    </visualEffectView>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uWg-C9-bgO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -113,22 +130,38 @@
         <!--Queue-->
         <scene sceneID="cy3-zJ-I55">
             <objects>
-                <viewController id="Dey-QT-ufm" userLabel="Queue" sceneMemberID="viewController">
+                <viewController id="Dey-QT-ufm" userLabel="Queue" customClass="QueueTableViewController" customModule="juke" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q3Z-Qr-yQU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qlJ-mm-Rkm">
-                                <rect key="frame" x="16" y="20" width="343" height="587"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IvN-g1-aTJ">
                                 <rect key="frame" x="312" y="617" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="+"/>
                                 <connections>
-                                    <segue destination="AVI-2m-1bC" kind="presentation" id="1Al-EE-7yz"/>
+                                    <segue destination="OAS-cL-4R6" kind="presentation" id="sgH-31-hwi"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qlJ-mm-Rkm">
+                                <rect key="frame" x="16" y="20" width="343" height="587"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYc-3T-d24">
+                                <rect key="frame" x="-21" y="617" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button that pulls up song info"/>
+                                <connections>
+                                    <segue destination="lvL-qC-fuB" kind="presentation" modalPresentationStyle="overCurrentContext" id="fOM-v0-0zM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="204-WK-PWK">
+                                <rect key="frame" x="255" y="625" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Current"/>
+                                <connections>
+                                    <segue destination="5vV-u6-uzv" kind="presentation" id="Xmc-MG-r7M"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -140,10 +173,10 @@
             </objects>
             <point key="canvasLocation" x="930" y="134"/>
         </scene>
-        <!--Fake String Current Song-->
+        <!--Current Song-->
         <scene sceneID="EKQ-UQ-ScY">
             <objects>
-                <viewController id="5vV-u6-uzv" userLabel="Fake String Current Song" sceneMemberID="viewController">
+                <viewController id="5vV-u6-uzv" userLabel="Current Song" customClass="CurrentSongViewController" customModule="juke" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ho5-Uu-rK7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -155,13 +188,8 @@
             </objects>
             <point key="canvasLocation" x="618" y="820"/>
         </scene>
-        <!--Current Song AV Player View Controller-->
-        <scene sceneID="XaM-XB-bqc">
-            <objects>
-                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="AVI-2m-1bC" userLabel="Current Song AV Player View Controller" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qEe-Aq-wDZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1279" y="820"/>
-        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="lIN-Af-o6w"/>
+    </inferredMetricsTieBreakers>
 </document>
