@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B63200222194386E003E4206 /* Authenticate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63200212194386E003E4206 /* Authenticate.swift */; };
 		B6348713218AEDCB00D48EFA /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6348712218AEDCB00D48EFA /* model.swift */; };
 		B6DF3DE2218790E70027D4A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DF3DE1218790E70027D4A1 /* AppDelegate.swift */; };
 		B6DF3DE4218790E70027D4A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DF3DE3218790E70027D4A1 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		08259BF1C585D29437BCAE3C /* Pods-fbdeneme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbdeneme.release.xcconfig"; path = "Pods/Target Support Files/Pods-fbdeneme/Pods-fbdeneme.release.xcconfig"; sourceTree = "<group>"; };
 		A1B2C663614B6CAFFDC3D047 /* Pods-fbdeneme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbdeneme.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fbdeneme/Pods-fbdeneme.debug.xcconfig"; sourceTree = "<group>"; };
+		B63200212194386E003E4206 /* Authenticate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticate.swift; sourceTree = "<group>"; };
 		B6348712218AEDCB00D48EFA /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B6DF3DDE218790E70027D4A1 /* fbdeneme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fbdeneme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DF3DE1218790E70027D4A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				B6348712218AEDCB00D48EFA /* model.swift */,
 				B6DF3DED218790EA0027D4A1 /* Info.plist */,
 				B6DF3DF3218792370027D4A1 /* GoogleService-Info.plist */,
+				B63200212194386E003E4206 /* Authenticate.swift */,
 			);
 			path = fbdeneme;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B63200222194386E003E4206 /* Authenticate.swift in Sources */,
 				B6DF3DE4218790E70027D4A1 /* ViewController.swift in Sources */,
 				B6348713218AEDCB00D48EFA /* model.swift in Sources */,
 				B6DF3DE2218790E70027D4A1 /* AppDelegate.swift in Sources */,
