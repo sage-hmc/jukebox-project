@@ -1,14 +1,14 @@
 //
-//  TableViewController.swift
+//  QueueTableViewController.swift
 //  juke
 //
-//  Created by clinic18 on 11/8/18.
+//  Created by Roman Rosenast on 11/8/18.
 //  Copyright © 2018 Kevin Sasaki. All rights reserved.
 //
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class QueueTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
