@@ -53,7 +53,6 @@
         <!--Add Song-->
         <scene sceneID="5cF-ez-haS">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f02-60-aUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="OAS-cL-4R6" userLabel="Add Song" customClass="TableViewController" customModule="juke" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="emT-kd-Twu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -72,7 +71,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="BACK TO QUEUE"/>
                                 <connections>
-                                    <segue destination="Dey-QT-ufm" kind="presentation" id="fKp-GE-h5f"/>
+                                    <segue destination="Dey-QT-ufm" kind="presentation" id="CzC-Ws-yHs"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -83,6 +82,7 @@
                         <outlet property="searchDisplayController" destination="HBE-U7-eMo" id="8ve-C5-Vnb"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f02-60-aUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="HBE-U7-eMo">
                     <connections>
                         <outlet property="delegate" destination="OAS-cL-4R6" id="SST-Y8-mdY"/>
