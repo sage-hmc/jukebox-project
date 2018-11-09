@@ -54,7 +54,7 @@
         <scene sceneID="5cF-ez-haS">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f02-60-aUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="OAS-cL-4R6" userLabel="Add Song" sceneMemberID="viewController">
+                <viewController id="OAS-cL-4R6" userLabel="Add Song" customClass="TableViewController" customModule="juke" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="emT-kd-Twu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,6 +71,9 @@
                                 <rect key="frame" x="233" y="603" width="118" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="BACK TO QUEUE"/>
+                                <connections>
+                                    <segue destination="Dey-QT-ufm" kind="presentation" id="fKp-GE-h5f"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -90,7 +93,22 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="855" y="134"/>
+            <point key="canvasLocation" x="1753" y="134"/>
+        </scene>
+        <!--Song Info-->
+        <scene sceneID="gHx-MA-hA6">
+            <objects>
+                <viewController id="lvL-qC-fuB" userLabel="Song Info" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aIq-tX-rPM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="kX6-bz-ewu"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uWg-C9-bgO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="929" y="-554"/>
         </scene>
         <!--Queue-->
         <scene sceneID="cy3-zJ-I55">
@@ -110,7 +128,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="+"/>
                                 <connections>
-                                    <segue destination="OAS-cL-4R6" kind="presentation" id="6Ph-cC-Fe3"/>
+                                    <segue destination="AVI-2m-1bC" kind="presentation" id="1Al-EE-7yz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -120,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKq-lz-bBw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1581.5999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="930" y="134"/>
         </scene>
         <!--Fake String Current Song-->
         <scene sceneID="EKQ-UQ-ScY">
@@ -135,18 +153,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UjK-Yx-CEt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1582" y="850"/>
+            <point key="canvasLocation" x="618" y="820"/>
         </scene>
-        <!--AV Player View Controller-->
+        <!--Current Song AV Player View Controller-->
         <scene sceneID="XaM-XB-bqc">
             <objects>
-                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="AVI-2m-1bC" sceneMemberID="viewController"/>
+                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="AVI-2m-1bC" userLabel="Current Song AV Player View Controller" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qEe-Aq-wDZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2274" y="134"/>
+            <point key="canvasLocation" x="1279" y="820"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="6Ph-cC-Fe3"/>
-    </inferredMetricsTieBreakers>
 </document>
