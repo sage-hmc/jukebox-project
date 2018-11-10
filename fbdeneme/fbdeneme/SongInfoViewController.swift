@@ -16,8 +16,8 @@ class SongInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        SongTitleLabel.text = mySongArray[myIndex]
-        SongScoreLabel.text = myScoreArray[myIndex]
+        SongTitleLabel.text = songs[myIndex].url
+        SongScoreLabel.text = "\(songs[myIndex].score)"
     }
     
 

@@ -10,8 +10,6 @@ import UIKit
 import Firebase
 
 var myIndex = 0
-var mySongArray = ["song1","song2"]
-var myScoreArray = ["score1","score2"]
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
