@@ -18,21 +18,27 @@ class Authenticate: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    
+    /*
+     This function is used to register the user in the database and locally
+     before moving to the playlist screen
+     
+     ADD OPTIONAL CHECKING HERE
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Change this with a better id
         if segue.identifier == "anan"{
             let ref = Database.database().reference()
             let users = ref.child("Users")
-            print("eHEREEE")
+            //print("eHEREEE")
             users.observeSingleEvent(of: .value, with:{ (snapshot) in
-                print("HEREEE")
+                //print("HEREEE")
                 if(snapshot.hasChild("\(self.username.text!)")){
-                    print("Welcome back!")
-                    SharedStuff.shared.user = self.username.text!
+                   // print("Welcome back!")
                 } else {
                     users.child("\(self.username.text!)").setValue("\(self.username.text!)")
-                    SharedStuff.shared.user = self.username.text!
+                    
                 }
+                SharedStuff.shared.user = self.username.text!
             })
         }
     }
