@@ -36,8 +36,9 @@ class SharedStuff{
 
 class song {
     let url: String
-    var score: Int
-    var voters = ["anan", "baban"]
+    var upvotescore: Int
+    var downvotescore: Int
+    var voters: [String:String] = [:]
     let user: String
     let reference: DatabaseReference
     
@@ -45,9 +46,11 @@ class song {
     // when adding a new song
     init(url: String) {
         self.url = url
-        self.score = 0
+        self.upvotescore = 1
+        self.downvotescore = 0
         self.user = SharedStuff.shared.user!
         self.reference = SharedStuff.shared.ref.child("Songs").child(url)
+        self.voters = [self.user : "up"]
     }
     
     // This takes the firebase data and creates a local song from it
@@ -56,15 +59,17 @@ class song {
         guard
             let value = snapshot.value as? [String: AnyObject],
             let url = value["url"] as? String,
-            let score = value["score"] as? Int,
-            let voters = value["voters"] as? [String],
+            let upvotescore = value["up-vote score"] as? Int,
+            let downvotescore = value["down-vote score"] as? Int,
+            let voters = value["voters"] as? [String: String],
             let user = value["user"] as? String else {
             return nil
         }
 
         
         self.url = url
-        self.score = score
+        self.upvotescore = upvotescore
+        self.downvotescore = downvotescore
         self.voters = voters
         self.user = user
         self.reference = snapshot.ref
@@ -74,22 +79,51 @@ class song {
     // If upvote is true, score += 1, and score -= 1 otherwise
     func updateScore(upvote: Bool){
         reference.observeSingleEvent(of: .value) { (snapshot) in
-            print("Here comes sc's")
+            //print("Here comes sc's")
             guard
                 let value = snapshot.value as? NSDictionary,
-                var sc = value["score"] as? Int else{
+                var dict = value["voters"] as? [String:String],
+                var up = value["up-vote score"] as? Int,
+                var down = value["down-vote score"] as? Int else{
                     return
             }
             
-            //print(sc)
-            
-            if(upvote){
-                sc += 1
-            } else{
-                sc -= 1
+            if let val = dict[SharedStuff.shared.user!] {
+                if(val == "up" && !upvote){
+                    dict[SharedStuff.shared.user!] = "down"
+                    down += 1
+                    up -= 1
+                } else if(val == "down" && upvote){
+                    dict[SharedStuff.shared.user!] = "up"
+                    down -= 1
+                    up += 1
+                }
+            } else {
+                
+                if(upvote){
+                    dict[SharedStuff.shared.user!] = "up"
+                    up += 1
+                } else {
+                    dict[SharedStuff.shared.user!] = "down"
+                    down += 1
+                }
+                
             }
-            //print(sc)
-            self.reference.child("score").setValue(sc)
+            self.reference.child("up-vote score").setValue(up)
+            self.reference.child("down-vote score").setValue(down)
+            self.reference.child("voters").setValue(dict)
+            
+            
+            /*if(upvote){
+                song
+                up += 1
+                self.reference.child("up-vote score").setValue(up)
+            } else{
+                down += 1
+                self.reference.child("down-vote score").setValue(down)
+
+            }*/
+
         }
     }
             
