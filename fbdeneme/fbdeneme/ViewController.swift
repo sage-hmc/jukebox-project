@@ -13,7 +13,6 @@ var myIndex = 0
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var partyField: UITextField!
     @IBOutlet weak var songField: UITextField!
     @IBOutlet weak var table: UITableView!
     var refresh : UIRefreshControl = UIRefreshControl()
@@ -30,7 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // This function completely refreshes the data by pulling all the songs again
     // and populating the songs array in the model (model.swift)
     @objc func refreshData(){
-        partyField.delegate = self
+        
         songField.delegate = self
         let db = Database.database().reference().child("Songs")
         db.observeSingleEvent(of: .value, with: {(snapshot) in
@@ -47,12 +46,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // Will probably not be used
-    @IBAction func createPlaylist(){
-        let db = Database.database().reference()
-        let parties = db.child("Parties")
-        let newref  = parties.child("\(partyField.text!)")
-        newref.setValue("ye")
-    }
+    //@IBAction func createPlaylist(){
+       // let db = Database.database().reference()
+      //  let parties = db.child("Parties")
+       // let newref  = parties.child("\(partyField.text!)")
+      //  newref.setValue("ye")
+    //}
     
     // Adds a new song by first creating a local song
     // and then updating the database
@@ -62,7 +61,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cur = song(url:"\(songField.text!)")
         let newref  = parties.child("\(songField.text!)")
         newref.child("url").setValue(cur.url)
-        newref.child("score").setValue(cur.score)
+        newref.child("up-vote score").setValue(cur.upvotescore)
+        newref.child("down-vote score").setValue(cur.downvotescore)
         newref.child("voters").setValue(cur.voters)
         newref.child("user").setValue(SharedStuff.shared.user)
         
@@ -107,7 +107,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let upvote = UIContextualAction(style: .normal, title: "Upvote") { (action, view, done) in
-            songs[indexPath.row].score += 1;
+            //songs[indexPath.row].upvotescore += 1;
             songs[indexPath.row].updateScore(upvote: true)
             done(true)
         }
@@ -118,7 +118,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let downvote = UIContextualAction(style: .normal, title: "Downvote") { (action, view, done) in
             //print("INDExPAATH", "\(indexPath.row)")
-            songs[indexPath.row].score -= 1;
+            //songs[indexPath.row].downvotescore += 1;
             songs[indexPath.row].updateScore(upvote: false)
            // print("\(songs[indexPath.row].url)")
             done(true)

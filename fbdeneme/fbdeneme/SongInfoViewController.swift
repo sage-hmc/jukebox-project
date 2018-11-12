@@ -17,7 +17,8 @@ class SongInfoViewController: UIViewController {
         super.viewDidLoad()
 
         SongTitleLabel.text = songs[myIndex].url
-        SongScoreLabel.text = "\(songs[myIndex].score)"
+        var totalscore = songs[myIndex].upvotescore - songs[myIndex].downvotescore
+        SongScoreLabel.text = "\(totalscore)"
     }
     
 
