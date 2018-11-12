@@ -34,6 +34,12 @@ class SharedStuff{
  
  */
 
+func sortByScore(){
+    songs = songs.sorted(by: { ($0.upvotescore - $0.downvotescore) > ($1.upvotescore - $1.downvotescore)})
+    
+}
+
+
 class song {
     let url: String
     var upvotescore: Int
@@ -93,22 +99,30 @@ class song {
                     dict[SharedStuff.shared.user!] = "down"
                     down += 1
                     up -= 1
+                    self.downvotescore+=1
+                    self.upvotescore-=1
+                    
                 } else if(val == "down" && upvote){
                     dict[SharedStuff.shared.user!] = "up"
                     down -= 1
                     up += 1
+                    self.downvotescore -= 1
+                    self.upvotescore += 1
                 }
             } else {
                 
                 if(upvote){
                     dict[SharedStuff.shared.user!] = "up"
                     up += 1
+                    self.upvotescore += 1
                 } else {
                     dict[SharedStuff.shared.user!] = "down"
                     down += 1
+                    self.downvotescore += 1
                 }
                 
             }
+            sortByScore()
             self.reference.child("up-vote score").setValue(up)
             self.reference.child("down-vote score").setValue(down)
             self.reference.child("voters").setValue(dict)

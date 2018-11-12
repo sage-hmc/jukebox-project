@@ -39,6 +39,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 songs.append(song(snapshot: a)!)
                 print(songs[songs.count-1].url)
             }
+            sortByScore()
             self.table.reloadData()
             
         })
@@ -109,6 +110,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let upvote = UIContextualAction(style: .normal, title: "Upvote") { (action, view, done) in
             //songs[indexPath.row].upvotescore += 1;
             songs[indexPath.row].updateScore(upvote: true)
+            self.refreshData()
             done(true)
         }
         return UISwipeActionsConfiguration(actions: [upvote])
@@ -121,6 +123,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             //songs[indexPath.row].downvotescore += 1;
             songs[indexPath.row].updateScore(upvote: false)
            // print("\(songs[indexPath.row].url)")
+            self.refreshData()
             done(true)
         }
         return UISwipeActionsConfiguration(actions: [downvote])
