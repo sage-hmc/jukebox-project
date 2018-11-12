@@ -93,7 +93,9 @@ class song {
                 var down = value["down-vote score"] as? Int else{
                     return
             }
+            // If the user already voted and changes their vote, user's vote changes
             
+            // If the user previously upvoted the song and then downvotes the song
             if let val = dict[SharedStuff.shared.user!] {
                 if(val == "up" && !upvote){
                     dict[SharedStuff.shared.user!] = "down"
@@ -102,14 +104,16 @@ class song {
                     self.downvotescore+=1
                     self.upvotescore-=1
                     
-                } else if(val == "down" && upvote){
+                } // If the user previously downvoted the song and then upvotes the song
+                else if(val == "down" && upvote){
                     dict[SharedStuff.shared.user!] = "up"
                     down -= 1
                     up += 1
                     self.downvotescore -= 1
                     self.upvotescore += 1
                 }
-            } else {
+            } // If the user has not voted
+            else {
                 
                 if(upvote){
                     dict[SharedStuff.shared.user!] = "up"
