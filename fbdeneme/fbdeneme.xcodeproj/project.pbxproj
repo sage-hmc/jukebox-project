@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9C95C2C02196142F00EF3B1C /* SongInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C95C2BF2196142F00EF3B1C /* SongInfoViewController.swift */; };
+		9CD39B9D219A4E6B003471FF /* customTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD39B9C219A4E6B003471FF /* customTableViewCell.swift */; };
 		B63200222194386E003E4206 /* Authenticate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63200212194386E003E4206 /* Authenticate.swift */; };
 		B6348713218AEDCB00D48EFA /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6348712218AEDCB00D48EFA /* model.swift */; };
 		B6DF3DE2218790E70027D4A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DF3DE1218790E70027D4A1 /* AppDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		08259BF1C585D29437BCAE3C /* Pods-fbdeneme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbdeneme.release.xcconfig"; path = "Pods/Target Support Files/Pods-fbdeneme/Pods-fbdeneme.release.xcconfig"; sourceTree = "<group>"; };
 		9C95C2BF2196142F00EF3B1C /* SongInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoViewController.swift; sourceTree = "<group>"; };
+		9CD39B9C219A4E6B003471FF /* customTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTableViewCell.swift; sourceTree = "<group>"; };
 		A1B2C663614B6CAFFDC3D047 /* Pods-fbdeneme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbdeneme.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fbdeneme/Pods-fbdeneme.debug.xcconfig"; sourceTree = "<group>"; };
 		B63200212194386E003E4206 /* Authenticate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticate.swift; sourceTree = "<group>"; };
 		B6348712218AEDCB00D48EFA /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -88,6 +90,7 @@
 			children = (
 				B6DF3DE1218790E70027D4A1 /* AppDelegate.swift */,
 				B6DF3DE5218790E70027D4A1 /* Main.storyboard */,
+				9CD39B9C219A4E6B003471FF /* customTableViewCell.swift */,
 				B6DF3DE3218790E70027D4A1 /* ViewController.swift */,
 				9C95C2BF2196142F00EF3B1C /* SongInfoViewController.swift */,
 				B6DF3DE8218790EA0027D4A1 /* Assets.xcassets */,
@@ -229,6 +232,7 @@
 			files = (
 				B63200222194386E003E4206 /* Authenticate.swift in Sources */,
 				9C95C2C02196142F00EF3B1C /* SongInfoViewController.swift in Sources */,
+				9CD39B9D219A4E6B003471FF /* customTableViewCell.swift in Sources */,
 				B6DF3DE4218790E70027D4A1 /* ViewController.swift in Sources */,
 				B6348713218AEDCB00D48EFA /* model.swift in Sources */,
 				B6DF3DE2218790E70027D4A1 /* AppDelegate.swift in Sources */,
