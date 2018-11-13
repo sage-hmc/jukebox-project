@@ -379,7 +379,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V2ZPYW9K2Z;
+				DEVELOPMENT_TEAM = S8SKFZ35DU;
 				INFOPLIST_FILE = fbdeneme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -398,7 +398,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V2ZPYW9K2Z;
+				DEVELOPMENT_TEAM = S8SKFZ35DU;
 				INFOPLIST_FILE = fbdeneme/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
