@@ -12,6 +12,7 @@ class SongInfoViewController: UIViewController {
 
     @IBOutlet weak var SongTitleLabel: UILabel!
     @IBOutlet weak var SongScoreLabel: UILabel!
+    @IBOutlet weak var PopupView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,9 @@ class SongInfoViewController: UIViewController {
         SongTitleLabel.text = songs[myIndex].url
         let totalscore = songs[myIndex].upvotescore - songs[myIndex].downvotescore
         SongScoreLabel.text = "\(totalscore)"
+        
+        PopupView.layer.cornerRadius = 8.0
+        PopupView.backgroundColor = UIColor(red:0.92, green:0.92, blue:0.92, alpha:1.0)
     }
     
 
