@@ -11,11 +11,18 @@ import Firebase
 
 class Authenticate: UIViewController {
     @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var connect: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        //Disable the button at first
+        connect.isEnabled = false
+        
+        // This makes it so that when the user taps outside the textfield while
+        // editing it, the edit ends (So the keyboard disappears etc)
+        // Not very useful right now but nice to add I guess
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
 
     /*
@@ -42,14 +49,19 @@ class Authenticate: UIViewController {
             })
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    // This function is connected to the textfield in the storyboard by its
+    // editing changed property.
+    // It disables the button if there is no text
+    
+    @IBAction func textDidChange(_ sender: UITextField) {
+        if username.text?.isEmpty == false {
+            connect.isEnabled = true
+        } else {
+            connect.isEnabled = false
+        }
     }
-    */
-
 }
+
+

@@ -22,6 +22,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textDidChange:" destination="YSM-b4-FQn" eventType="editingChanged" id="R9y-RK-SzF"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OR1-IV-ECN">
                                 <rect key="frame" x="178" y="471" width="58" height="30"/>
@@ -42,6 +45,7 @@
                         <viewLayoutGuide key="safeArea" id="1Mb-tc-AZE"/>
                     </view>
                     <connections>
+                        <outlet property="connect" destination="OR1-IV-ECN" id="4cj-ye-B83"/>
                         <outlet property="username" destination="jmC-jM-Xfx" id="ol4-xY-KmJ"/>
                     </connections>
                 </viewController>
@@ -209,6 +213,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="c2S-t8-48E"/>
+        <segue reference="TPn-Jh-zhd"/>
     </inferredMetricsTieBreakers>
 </document>
