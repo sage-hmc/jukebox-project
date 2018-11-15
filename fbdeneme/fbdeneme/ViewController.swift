@@ -127,7 +127,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Implements swipe to upvote by updating the local song and calling
     // the updatescore function in the model
-    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let upvote = UIContextualAction(style: .normal, title: "Upvote") { (action, view, done) in
             //songs[indexPath.row].upvotescore += 1;
