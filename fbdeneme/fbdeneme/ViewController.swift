@@ -86,9 +86,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = songs[indexPath.row].url
+        
+        cell.backgroundColor = UIColorFromHex(rgbValue: getMyBGColor( index: indexPath.row ), alpha: 0.75)
         return cell
         
     }
+    
+    // Function for getting cell color
+    func UIColorFromHex(rgbValue:UInt32, alpha:Double=1.0)->UIColor {
+        let red = CGFloat((rgbValue & 0xFF0000) >> 16)/256.0
+        let green = CGFloat((rgbValue & 0xFF00) >> 8)/256.0
+        let blue = CGFloat(rgbValue & 0xFF)/256.0
+        
+        return UIColor(red:red, green:green, blue:blue, alpha:CGFloat(alpha))
+    }
+    
+    // Function for assigning cell color
+    func getMyBGColor(index: Int)->UInt32 {
+        
+        // In the case that the hex gradient overflows
+        if ((0xFFB372 - (0x10FBEC * index)) < 0x97C8EA ) {
+            return UInt32(0x97C8EA - (0x110905 * (index-6)))
+        }
+        return UInt32(0xFFB372 - (0x10FBEC * index))
+    }
+
     
     /*func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
