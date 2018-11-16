@@ -19,6 +19,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Get the song database. This will be different when a music linrary is added
+        getSongs()
+        
         // Refresh the data in the table
         table.refreshControl = refresh
         refreshData()
@@ -26,18 +30,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         refresh.addTarget(self, action: #selector(ViewController.refreshData), for: .valueChanged)
     }
     
+    
+    func getSongs(){
+        let db = SharedStuff.shared.ref.child("Song Database")
+        db.observeSingleEvent(of: .value) { (snapshot) in
+            dbSongs.removeAll()
+            for child in snapshot.children {
+                let a = child as! DataSnapshot
+                dbSongs.append(dbSong(snapshot: a)!)
+                //print(songs[songs.count-1].url)
+            }
+        }
+        
+    }
+
     // This function completely refreshes the data by pulling all the songs again
     // and populating the songs array in the model (model.swift)
     @objc func refreshData(){
         
         songField.delegate = self
-        let db = Database.database().reference().child("Songs")
+        let db = Database.database().reference().child("Songsv2")
         db.observeSingleEvent(of: .value, with: {(snapshot) in
+            // This might not scale well. Maybe implement a more legit update?
             songs.removeAll()
             for child in snapshot.children {
                 let a = child as! DataSnapshot
                 songs.append(song(snapshot: a)!)
-                print(songs[songs.count-1].url)
+                //print(songs[songs.count-1].url)
             }
             sortByScore()
             self.table.reloadData()
@@ -56,19 +75,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Adds a new song by first creating a local song
     // and then updating the database
+
     @IBAction func addSong(){
-        let db = SharedStuff.shared.ref
-        let parties = db.child("Songs")
-        let cur = song(url:"\(songField.text!)")
-        let newref  = parties.child("\(songField.text!)")
-        newref.child("url").setValue(cur.url)
-        newref.child("up-vote score").setValue(cur.upvotescore)
-        newref.child("down-vote score").setValue(cur.downvotescore)
-        newref.child("voters").setValue(cur.voters)
-        newref.child("user").setValue(SharedStuff.shared.user)
+        let curText = songField.text!
+        if let found = dbSongs.first(where: {$0.url == curText} ) {
+            let cur = song(db: found)
+            songs.append(cur)
+            self.table.reloadData()
+        } else {
+            return
+        }
         
-        songs.append(cur)
-        self.table.reloadData()
+        
     }
     
     // Necessary for the tabele view
