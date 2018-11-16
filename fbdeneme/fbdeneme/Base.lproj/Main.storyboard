@@ -27,7 +27,10 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OR1-IV-ECN">
-                                <rect key="frame" x="178" y="471" width="58" height="30"/>
+                                <rect key="frame" x="170.5" y="471" width="73" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="73" id="YRN-F8-UsL"/>
+                                </constraints>
                                 <state key="normal" title="Connect"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="presentation" identifier="anan" id="TPn-Jh-zhd"/>
@@ -37,10 +40,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="OR1-IV-ECN" firstAttribute="top" secondItem="jmC-jM-Xfx" secondAttribute="bottom" constant="45" id="5bx-fI-BGL"/>
+                            <constraint firstItem="jmC-jM-Xfx" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OR1-IV-ECN" secondAttribute="trailing" id="Bth-Yn-lnO"/>
                             <constraint firstItem="jmC-jM-Xfx" firstAttribute="centerX" secondItem="43u-Xo-eQh" secondAttribute="centerX" id="G1A-6G-641"/>
                             <constraint firstItem="OR1-IV-ECN" firstAttribute="centerX" secondItem="43u-Xo-eQh" secondAttribute="centerX" id="J6l-CR-lLL"/>
                             <constraint firstItem="1Mb-tc-AZE" firstAttribute="bottom" secondItem="OR1-IV-ECN" secondAttribute="bottom" constant="361" id="Yvm-g5-AFn"/>
-                            <constraint firstItem="OR1-IV-ECN" firstAttribute="leading" secondItem="1Mb-tc-AZE" secondAttribute="leading" constant="178" id="wOr-Hu-76w"/>
+                            <constraint firstItem="OR1-IV-ECN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Mb-tc-AZE" secondAttribute="leading" id="wOr-Hu-76w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1Mb-tc-AZE"/>
                     </view>
@@ -288,6 +292,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="G8c-kI-edW"/>
+        <segue reference="TPn-Jh-zhd"/>
     </inferredMetricsTieBreakers>
 </document>
