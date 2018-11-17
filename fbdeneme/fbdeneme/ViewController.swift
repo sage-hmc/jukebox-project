@@ -13,7 +13,6 @@ var myIndex = 0
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var songField: UITextField!
     @IBOutlet weak var table: UITableView!
     var refresh : UIRefreshControl = UIRefreshControl()
     
@@ -48,7 +47,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // and populating the songs array in the model (model.swift)
     @objc func refreshData(){
         
-        songField.delegate = self
         let db = Database.database().reference().child("Songsv2")
         db.observeSingleEvent(of: .value, with: {(snapshot) in
             // This might not scale well. Maybe implement a more legit update?
@@ -75,19 +73,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Adds a new song by first creating a local song
     // and then updating the database
-
-    @IBAction func addSong(){
-        let curText = songField.text!
-        if let found = dbSongs.first(where: {$0.url == curText} ) {
-            let cur = song(db: found)
-            songs.append(cur)
-            self.table.reloadData()
-        } else {
-            return
-        }
-        
-        
-    }
     
     // Necessary for the tabele view
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -103,7 +88,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Indicates what should be output for each cell in the table.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = songs[indexPath.row].url
+        cell.textLabel?.text = songs[indexPath.row].info["title"]! + " - " + songs[indexPath.row].info["artist"]! + " - " + songs[indexPath.row].info["album"]!
+        
         
         cell.backgroundColor = UIColorFromHex(rgbValue: getMyBGColor( index: indexPath.row ), alpha: 0.75)
         return cell
@@ -175,7 +161,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
 }
-
 
 // Some tutorial said this was useful.
 extension ViewController : UITextFieldDelegate {
