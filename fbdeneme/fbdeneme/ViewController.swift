@@ -37,7 +37,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             for child in snapshot.children {
                 let a = child as! DataSnapshot
                 dbSongs.append(dbSong(snapshot: a)!)
-                //print(songs[songs.count-1].url)
             }
         }
         
@@ -81,7 +80,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Indicates how many things should be listed in the table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(songs.count)
         return songs.count
     }
     
@@ -154,10 +152,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return UISwipeActionsConfiguration(actions: [downvote])
     }
     
-    //Function for handling song tap for non currently-playing songs
+    // Function for handling song tap for non currently-playing songs
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         myIndex = indexPath.row
-        performSegue(withIdentifier: "SongInfoSeque", sender: self)
+        
+        if (myIndex == 0) {
+            performSegue(withIdentifier: "CurrentSongSegue", sender: self)
+        }
+        
+        else {
+            performSegue(withIdentifier: "SongInfoSeque", sender: self)
+        }
     }
 
 }

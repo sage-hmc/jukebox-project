@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9C95C2C02196142F00EF3B1C /* SongInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C95C2BF2196142F00EF3B1C /* SongInfoViewController.swift */; };
 		9CD39BA1219CFA04003471FF /* AddSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD39BA0219CFA04003471FF /* AddSongViewController.swift */; };
+		9CDEE24D21A25FE3001991F6 /* CurrentSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CDEE24C21A25FE3001991F6 /* CurrentSongViewController.swift */; };
 		B63200222194386E003E4206 /* Authenticate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63200212194386E003E4206 /* Authenticate.swift */; };
 		B6348713218AEDCB00D48EFA /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6348712218AEDCB00D48EFA /* model.swift */; };
 		B6DF3DE2218790E70027D4A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DF3DE1218790E70027D4A1 /* AppDelegate.swift */; };
@@ -25,6 +26,7 @@
 		08259BF1C585D29437BCAE3C /* Pods-fbdeneme.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbdeneme.release.xcconfig"; path = "Pods/Target Support Files/Pods-fbdeneme/Pods-fbdeneme.release.xcconfig"; sourceTree = "<group>"; };
 		9C95C2BF2196142F00EF3B1C /* SongInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfoViewController.swift; sourceTree = "<group>"; };
 		9CD39BA0219CFA04003471FF /* AddSongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSongViewController.swift; sourceTree = "<group>"; };
+		9CDEE24C21A25FE3001991F6 /* CurrentSongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSongViewController.swift; sourceTree = "<group>"; };
 		A1B2C663614B6CAFFDC3D047 /* Pods-fbdeneme.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbdeneme.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fbdeneme/Pods-fbdeneme.debug.xcconfig"; sourceTree = "<group>"; };
 		B63200212194386E003E4206 /* Authenticate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authenticate.swift; sourceTree = "<group>"; };
 		B6348712218AEDCB00D48EFA /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -92,6 +94,7 @@
 			children = (
 				B6DF3DE1218790E70027D4A1 /* AppDelegate.swift */,
 				B6DF3DE5218790E70027D4A1 /* Main.storyboard */,
+				9CDEE24C21A25FE3001991F6 /* CurrentSongViewController.swift */,
 				9CD39BA0219CFA04003471FF /* AddSongViewController.swift */,
 				B6DF3DE3218790E70027D4A1 /* ViewController.swift */,
 				9C95C2BF2196142F00EF3B1C /* SongInfoViewController.swift */,
@@ -236,6 +239,7 @@
 				B63200222194386E003E4206 /* Authenticate.swift in Sources */,
 				9CD39BA1219CFA04003471FF /* AddSongViewController.swift in Sources */,
 				9C95C2C02196142F00EF3B1C /* SongInfoViewController.swift in Sources */,
+				9CDEE24D21A25FE3001991F6 /* CurrentSongViewController.swift in Sources */,
 				B6F7B58C219F4CBC0013B100 /* SearchController.swift in Sources */,
 				B6DF3DE4218790E70027D4A1 /* ViewController.swift in Sources */,
 				B6348713218AEDCB00D48EFA /* model.swift in Sources */,
@@ -386,6 +390,7 @@
 			baseConfigurationReference = A1B2C663614B6CAFFDC3D047 /* Pods-fbdeneme.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S8SKFZ35DU;
 				INFOPLIST_FILE = fbdeneme/Info.plist;
@@ -393,8 +398,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.alpan.abc.fbdeneme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.romanrosenast.abc.fbdeneme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -405,6 +411,7 @@
 			baseConfigurationReference = 08259BF1C585D29437BCAE3C /* Pods-fbdeneme.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S8SKFZ35DU;
 				INFOPLIST_FILE = fbdeneme/Info.plist;
@@ -412,8 +419,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.alpan.abc.fbdeneme;
+				PRODUCT_BUNDLE_IDENTIFIER = com.romanrosenast.abc.fbdeneme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
