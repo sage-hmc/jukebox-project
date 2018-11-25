@@ -56,6 +56,11 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         return cell
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+
+    
     /*
      // MARK: - Navigation
      // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -65,4 +70,12 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
      }
      */
     
+}
+
+// Some tutorial said this was useful.
+extension SearchController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

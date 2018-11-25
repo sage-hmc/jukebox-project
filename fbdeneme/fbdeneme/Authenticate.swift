@@ -9,13 +9,13 @@
 import UIKit
 import Firebase
 
-class Authenticate: UIViewController {
+class Authenticate: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var connect: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        username.delegate = self
         //Disable the button at first
         connect.isEnabled = false
         
@@ -25,6 +25,14 @@ class Authenticate: UIViewController {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        //or
+        //self.view.endEditing(true)
+        return true
+    }
+    
     /*
      This function is used to register the user in the database and locally
      before moving to the playlist screen
