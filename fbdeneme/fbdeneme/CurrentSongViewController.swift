@@ -55,12 +55,17 @@ class CurrentSongViewController: UIViewController {
     
     
     @IBAction func PlayButtonPressed(_ sender: UIButton) {
-        
-        let url = URL.init(string: songs[myIndex].url)
-        player = AVPlayer.init(url: url!)
+        if player == nil {
+            let url = URL.init(string: songs[myIndex].url)
+            player = AVPlayer.init(url: url!)
+        }
+
         player.play()
     }
     
+    @IBAction func PausePressed(_ sender: UIButton) {
+        player.pause()
+    }
     /*
     // MARK: - Navigation
 
