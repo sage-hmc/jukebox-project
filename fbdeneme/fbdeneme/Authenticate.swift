@@ -9,15 +9,38 @@
 import UIKit
 import Firebase
 
-class Authenticate: UIViewController {
+class Authenticate: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var connect: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        username.delegate = self
+        //Disable the button at first
+        connect.isEnabled = false
+   
+        // This makes it so that when the user taps outside the textfield while
+        // editing it, the edit ends (So the keyboard disappears etc)
+        // Not very useful right now but nice to add I guess
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let user = UserDefaults.standard.string(forKey: "user") {
+            SharedStuff.shared.user = user
+            print("here")
+            performSegue(withIdentifier: "second", sender: nil)
+        }
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        //or
+        //self.view.endEditing(true)
+        return true
+    }
+    
     /*
      This function is used to register the user in the database and locally
      before moving to the playlist screen
@@ -39,17 +62,23 @@ class Authenticate: UIViewController {
                     
                 }
                 SharedStuff.shared.user = self.username.text!
+                UserDefaults.standard.set(SharedStuff.shared.user, forKey: "user")
             })
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    // This function is connected to the textfield in the storyboard by its
+    // editing changed property.
+    // It disables the button if there is no text
+    
+    @IBAction func textDidChange(_ sender: UITextField) {
+        if username.text?.isEmpty == false {
+            connect.isEnabled = true
+        } else {
+            connect.isEnabled = false
+        }
     }
-    */
-
 }
+
+

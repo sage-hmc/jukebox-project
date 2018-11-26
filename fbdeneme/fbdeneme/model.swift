@@ -8,11 +8,16 @@
 
 import Foundation
 import Firebase
+import AVFoundation
 
 // This is the array that holds all the song info
 // Any firebase updates are changed locally here
 var songs : [song] = []
 
+// This is the databse of songs
+var dbSongs : [dbSong] = []
+
+var player: AVPlayer!
 
 // This class holds the root firebase reference and the user
 class SharedStuff{
@@ -20,6 +25,7 @@ class SharedStuff{
     static let shared = SharedStuff()
     var ref = Database.database().reference()
     var user : String?
+ 
 
 }
 
@@ -42,21 +48,30 @@ func sortByScore(){
 
 class song {
     let url: String
+    var info: [String:String] //Members are title, artist, album image url
     var upvotescore: Int
     var downvotescore: Int
     var voters: [String:String] = [:]
     let user: String
     let reference: DatabaseReference
     
-    // This creates a new song from scratch. Should only be used
-    // when adding a new song
-    init(url: String) {
-        self.url = url
+    // This created the song in a list from a song in the database.
+    // Not sure how real this will be when apple music is integrated
+    init(db: dbSong) {
+        self.url = db.url
+        self.info = db.info
         self.upvotescore = 1
         self.downvotescore = 0
         self.user = SharedStuff.shared.user!
-        self.reference = SharedStuff.shared.ref.child("Songs").child(url)
+        self.reference = SharedStuff.shared.ref.child("Songsv2").childByAutoId()
         self.voters = [self.user : "up"]
+        
+        self.reference.child("url").setValue(self.url)
+        self.reference.child("info").setValue(self.info)
+        self.reference.child("up-vote score").setValue(self.upvotescore)
+        self.reference.child("down-vote score").setValue(self.downvotescore)
+        self.reference.child("user").setValue(self.user)
+        self.reference.child("voters").setValue(self.voters)
     }
     
     // This takes the firebase data and creates a local song from it
@@ -68,12 +83,14 @@ class song {
             let upvotescore = value["up-vote score"] as? Int,
             let downvotescore = value["down-vote score"] as? Int,
             let voters = value["voters"] as? [String: String],
-            let user = value["user"] as? String else {
+            let user = value["user"] as? String,
+            let info = value["info"] as? [String:String] else{
             return nil
         }
 
         
         self.url = url
+        self.info = info
         self.upvotescore = upvotescore
         self.downvotescore = downvotescore
         self.voters = voters
@@ -146,6 +163,25 @@ class song {
     }
             
         
+}
+
+
+class dbSong{
+    let url: String
+    let info: [String:String]
+    
+    init?(snapshot: DataSnapshot) {
+        guard
+            let value = snapshot.value as? [String: AnyObject],
+            let url = value["url"] as? String,
+            let info = value["info"] as? [String:String] else {
+                return nil
+        }
+        
+        
+        self.url = url
+        self.info = info
+    }
 }
 
 
