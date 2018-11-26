@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import AVFoundation
 
 // This is the array that holds all the song info
 // Any firebase updates are changed locally here
@@ -16,6 +17,7 @@ var songs : [song] = []
 // This is the databse of songs
 var dbSongs : [dbSong] = []
 
+var player: AVPlayer!
 
 // This class holds the root firebase reference and the user
 class SharedStuff{
@@ -23,6 +25,7 @@ class SharedStuff{
     static let shared = SharedStuff()
     var ref = Database.database().reference()
     var user : String?
+ 
 
 }
 

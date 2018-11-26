@@ -17,12 +17,10 @@ class CurrentSongViewController: UIViewController {
     @IBOutlet weak var songCover: UIImageView!
     
     @IBOutlet weak var PopupView: UIView!
-    
-    var player: AVPlayer!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         songTitle.text = songs[myIndex].info["title"]
         songArtist.text = songs[myIndex].info["artist"]
         songAlbum.text = songs[myIndex].info["album"]
@@ -31,6 +29,11 @@ class CurrentSongViewController: UIViewController {
             songCover.contentMode = .scaleAspectFit
             downloadImage(from: url)
         }
+        
+       // if let url = URL(string: songs[0].url) {
+       //     downloadFile(url)
+       //     print("audio downloaded?")
+       // }
         
         PopupView.layer.cornerRadius = 8.0
         PopupView.backgroundColor = UIColor(red:0.92, green:0.92, blue:0.92, alpha:1.0)
@@ -55,16 +58,58 @@ class CurrentSongViewController: UIViewController {
     
     
     @IBAction func PlayButtonPressed(_ sender: UIButton) {
-        if player == nil {
-            let url = URL.init(string: songs[myIndex].url)
-            player = AVPlayer.init(url: url!)
+        let webUrl = URL.init(string: songs[myIndex].url)
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let path = url.appendingPathComponent(webUrl!.lastPathComponent)
+        if !FileManager.default.fileExists(atPath: path.path){
+            return
         }
-
+        if player == nil{
+            player = AVPlayer.init(url: path)
+        }
+        
         player.play()
     }
     
     @IBAction func PausePressed(_ sender: UIButton) {
-        player.pause()
+        if player != nil {
+            player.pause()
+        }
+        
+    }
+    
+    //taken from a tutorial
+    func downloadFile(_ audioUrl: URL) {
+        
+    
+        // then lets create your document folder url
+        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        print(documentsDirectoryURL)
+        // lets create your destination file url
+        let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
+        print(destinationUrl)
+        
+        // to check if it exists before downloading it
+        if FileManager.default.fileExists(atPath: destinationUrl.path) {
+            print("The file already exists at path")
+            
+            // if the file doesn't exist
+        } else {
+            
+            // you can use NSURLSession.sharedSession to download the data asynchronously
+            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
+                guard let location = location, error == nil else { return }
+                do {
+                    // after downloading your file you need to move it to your destination url
+                    try FileManager.default.moveItem(at: location, to: destinationUrl)
+                    print("File moved to documents folder")
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }).resume()
+        }
+        
+        
     }
     /*
     // MARK: - Navigation

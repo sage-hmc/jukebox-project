@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Refresh the data in the table
         table.refreshControl = refresh
         refreshData()
+        downloadSong()
         // Make the pull ot refresh functionality work
         refresh.addTarget(self, action: #selector(ViewController.refreshData), for: .valueChanged)
     }
@@ -40,6 +41,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         }
         
+    }
+    
+    func downloadSong(){
+        if(songs.count == 0){
+            return
+        }
+        // error checking?
+        let audioUrl =  URL(string: songs[0].url)!
+        // then lets create your document folder url
+        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        print(documentsDirectoryURL)
+        // lets create your destination file url
+        let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
+        print(destinationUrl)
+        
+        // to check if it exists before downloading it
+        if FileManager.default.fileExists(atPath: destinationUrl.path) {
+            print("The file already exists at path")
+            
+            // if the file doesn't exist
+        } else {
+            
+            // you can use NSURLSession.sharedSession to download the data asynchronously
+            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
+                guard let location = location, error == nil else { return }
+                do {
+                    // after downloading your file you need to move it to your destination url
+                    try FileManager.default.moveItem(at: location, to: destinationUrl)
+                    print("File moved to documents folder")
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }).resume()
+        }
     }
 
     // This function completely refreshes the data by pulling all the songs again
