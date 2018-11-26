@@ -53,6 +53,7 @@
                     <connections>
                         <outlet property="connect" destination="OR1-IV-ECN" id="4cj-ye-B83"/>
                         <outlet property="username" destination="jmC-jM-Xfx" id="ol4-xY-KmJ"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="second" id="xoJ-Zo-KR8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oll-fp-B4w" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -464,6 +465,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="G8c-kI-edW"/>
+        <segue reference="xoJ-Zo-KR8"/>
     </inferredMetricsTieBreakers>
 </document>

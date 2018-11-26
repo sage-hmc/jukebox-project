@@ -18,11 +18,19 @@ class Authenticate: UIViewController, UITextFieldDelegate {
         username.delegate = self
         //Disable the button at first
         connect.isEnabled = false
-        
+   
         // This makes it so that when the user taps outside the textfield while
         // editing it, the edit ends (So the keyboard disappears etc)
         // Not very useful right now but nice to add I guess
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let user = UserDefaults.standard.string(forKey: "user") {
+            SharedStuff.shared.user = user
+            print("here")
+            performSegue(withIdentifier: "second", sender: nil)
+        }
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -54,6 +62,7 @@ class Authenticate: UIViewController, UITextFieldDelegate {
                     
                 }
                 SharedStuff.shared.user = self.username.text!
+                UserDefaults.standard.set(SharedStuff.shared.user, forKey: "user")
             })
         }
     }
