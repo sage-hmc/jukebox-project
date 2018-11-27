@@ -9,6 +9,17 @@
 import UIKit
 import AVFoundation
 
+/*
+    This class is the view controller of the current song screen
+    So, this class is responsible for playing and stopping the song
+ 
+    This is done by the player global variable in model.
+    It is an AVPlayer instance.
+ 
+    The play and pause functions modify that variable.
+ 
+ */
+
 class CurrentSongViewController: UIViewController {
     
     @IBOutlet weak var songTitle: UILabel!
@@ -21,6 +32,8 @@ class CurrentSongViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Display the song info
         songTitle.text = songs[myIndex].info["title"]
         songArtist.text = songs[myIndex].info["artist"]
         songAlbum.text = songs[myIndex].info["album"]
@@ -40,6 +53,8 @@ class CurrentSongViewController: UIViewController {
         
     }
     
+    // This function and getData below this download an image
+    // They are used to fisplay the album cover.
     func downloadImage(from url: URL) {
         print("Download Started")
         getData(from: url) { data, response, error in
@@ -57,20 +72,29 @@ class CurrentSongViewController: UIViewController {
     }
     
     
+    // Play button invokes this function
+    // The song is only played when the file finishes downloading
+    // The audio file is download at the original view controller
+    
     @IBAction func PlayButtonPressed(_ sender: UIButton) {
+        // Create the local filepath that the song is supposed to exist in
         let webUrl = URL.init(string: songs[myIndex].url)
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let path = url.appendingPathComponent(webUrl!.lastPathComponent)
+        // If the file is not there don't do anything
         if !FileManager.default.fileExists(atPath: path.path){
             return
         }
+        // If it is there but the player was not initialized, init.
         if player == nil{
             player = AVPlayer.init(url: path)
         }
         
+        // Then play
         player.play()
     }
     
+    // Pause is simple
     @IBAction func PausePressed(_ sender: UIButton) {
         if player != nil {
             player.pause()
@@ -78,39 +102,7 @@ class CurrentSongViewController: UIViewController {
         
     }
     
-    //taken from a tutorial
-    func downloadFile(_ audioUrl: URL) {
-        
-    
-        // then lets create your document folder url
-        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        print(documentsDirectoryURL)
-        // lets create your destination file url
-        let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
-        print(destinationUrl)
-        
-        // to check if it exists before downloading it
-        if FileManager.default.fileExists(atPath: destinationUrl.path) {
-            print("The file already exists at path")
-            
-            // if the file doesn't exist
-        } else {
-            
-            // you can use NSURLSession.sharedSession to download the data asynchronously
-            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
-                guard let location = location, error == nil else { return }
-                do {
-                    // after downloading your file you need to move it to your destination url
-                    try FileManager.default.moveItem(at: location, to: destinationUrl)
-                    print("File moved to documents folder")
-                } catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            }).resume()
-        }
-        
-        
-    }
+
     /*
     // MARK: - Navigation
 

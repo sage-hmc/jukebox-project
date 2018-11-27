@@ -61,6 +61,7 @@ class Authenticate: UIViewController, UITextFieldDelegate {
                     users.child("\(self.username.text!)").setValue("\(self.username.text!)")
                     
                 }
+                // cache the user here
                 SharedStuff.shared.user = self.username.text!
                 UserDefaults.standard.set(SharedStuff.shared.user, forKey: "user")
             })

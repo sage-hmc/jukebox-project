@@ -25,6 +25,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Refresh the data in the table
         table.refreshControl = refresh
         refreshData()
+        
+        // Download the first song here
         downloadSong()
         // Make the pull ot refresh functionality work
         refresh.addTarget(self, action: #selector(ViewController.refreshData), for: .valueChanged)
@@ -43,27 +45,37 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
+    
+    // This function downloads the first song in the queue
+    // if it was not downloaded already.
+    // mostly taken from a tutorial
     func downloadSong(){
         if(songs.count == 0){
             return
         }
         // error checking?
         let audioUrl =  URL(string: songs[0].url)!
-        // then lets create your document folder url
+        
+        // this gets the local documents folder
         let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        
+        // You can use the pront statements to find the file if you are
+        // using a simulator
         print(documentsDirectoryURL)
-        // lets create your destination file url
+        
+        // Now create the file path by appending the string after the last slash
+        // in the otiginal song url
         let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
         print(destinationUrl)
         
-        // to check if it exists before downloading it
+        // If the file exists don't download
         if FileManager.default.fileExists(atPath: destinationUrl.path) {
             print("The file already exists at path")
             
-            // if the file doesn't exist
+        // If the file doesn't exist
         } else {
             
-            // you can use NSURLSession.sharedSession to download the data asynchronously
+            // this part downloads the data
             URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
                 guard let location = location, error == nil else { return }
                 do {
