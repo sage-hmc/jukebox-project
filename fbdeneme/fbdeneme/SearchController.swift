@@ -27,7 +27,7 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchSongs = dbSongs.filter({ dbSong -> Bool in
             if let text = searchBar.text?.lowercased() {
-                return dbSong.info["title"]!.contains(text)
+                return dbSong.info["title"]!.lowercased().contains(text)
             } else {
                 return false
             }
