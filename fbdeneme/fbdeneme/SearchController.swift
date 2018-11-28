@@ -44,7 +44,17 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let curSong = searchSongs[indexPath.row]
+        
+        // Before you add song, make sure it is not already in Queue.
+        for song in songs {
+            if (song.info["title"] == curSong.info["title"]){
+                performSegue(withIdentifier: "backToMain", sender: self)
+                return
+            }
+        }
+        
         let cur = song(db: curSong)
         songs.append(cur)
         performSegue(withIdentifier: "backToMain", sender: self)
