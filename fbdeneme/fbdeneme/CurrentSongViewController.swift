@@ -121,8 +121,12 @@ class CurrentSongViewController: UIViewController {
         musicPlayer.play()
     }
     
+    @IBAction func skipPressed(_ sender: Any) {
+        musicPlayer.skipToNextItem()
+        setPlaylist()
+    }
     // Pause is simple
-    @IBAction func PausePressed(_ sender: UIButton) {
+    @IBAction func pausePressed(_ sender: UIButton) {
         musicPlayer.pause()
     }
     func setPlaylist(){

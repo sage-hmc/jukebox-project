@@ -287,6 +287,14 @@
                                         <constraint firstItem="ZIT-8w-apT" firstAttribute="centerX" secondItem="tP4-SG-E4r" secondAttribute="centerX" id="xQA-6p-N2j"/>
                                     </constraints>
                                 </view>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3J-W6-JMw">
+                                    <rect key="frame" x="192" y="576" width="30" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Skip"/>
+                                    <connections>
+                                        <action selector="skipPressed:" destination="dlv-aX-3kl" eventType="touchUpInside" id="Jst-hI-saW"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="7sO-E3-Yd5" secondAttribute="bottom" constant="88" id="4qc-eq-VSP"/>
@@ -465,6 +473,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="xoJ-Zo-KR8"/>
+        <segue reference="nDt-ki-uAg"/>
     </inferredMetricsTieBreakers>
 </document>
