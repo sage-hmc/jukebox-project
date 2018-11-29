@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Get the song database. This will be different when a music linrary is added
+        //Get the song database. This will be different when a music library is added
         getSongs()
         
         // Refresh the data in the table
@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     
     func getSongs(){
-        let db = SharedStuff.shared.ref.child("Song Database")
+        let db = SharedStuff.shared.ref.child("SongsV3")
         db.observeSingleEvent(of: .value) { (snapshot) in
             dbSongs.removeAll()
             for child in snapshot.children {
@@ -93,7 +93,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // and populating the songs array in the model (model.swift)
     @objc func refreshData(){
         
-        let db = Database.database().reference().child("Songsv2")
+        let db = Database.database().reference().child("SongsV3")
         db.observeSingleEvent(of: .value, with: {(snapshot) in
             // This might not scale well. Maybe implement a more legit update?
             songs.removeAll()

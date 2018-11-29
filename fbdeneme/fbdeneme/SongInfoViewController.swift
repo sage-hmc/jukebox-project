@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
+import MediaPlayer
 class SongInfoViewController: UIViewController {
-
+    var musicPlayer = MPMusicPlayerController.systemMusicPlayer
     
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var songArtist: UILabel!
@@ -29,10 +29,15 @@ class SongInfoViewController: UIViewController {
         
         QueuerLabel.text = songs[myIndex].user
         
-        if let url = URL(string: songs[myIndex].info["imageurl"] ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/12in-Vinyl-LP-Record-Angle.jpg/440px-12in-Vinyl-LP-Record-Angle.jpg") {
-            songCover.contentMode = .scaleAspectFit
-            downloadImage(from: url)
-        }
+        let query = MPMediaQuery()
+        let predicate = MPMediaPropertyPredicate(value: songTitle.text, forProperty: MPMediaItemPropertyTitle)
+        query.addFilterPredicate(predicate)
+        let currentSong = query.items?[0]
+        
+        songCover.contentMode = .scaleAspectFit
+        let size = CGSize(width: 100, height: 100)
+        
+        self.songCover.image = currentSong?.artwork?.image(at: size)
         
         let totalscore = songs[myIndex].upvotescore - songs[myIndex].downvotescore
         SongScoreLabel.text = "\(totalscore)"

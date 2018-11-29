@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 import AVFoundation
-
+import MediaPlayer
 // This is the array that holds all the song info
 // Any firebase updates are changed locally here
 var songs : [song] = []
@@ -63,7 +63,7 @@ class song {
         self.upvotescore = 1
         self.downvotescore = 0
         self.user = SharedStuff.shared.user!
-        self.reference = SharedStuff.shared.ref.child("Songsv2").childByAutoId()
+        self.reference = SharedStuff.shared.ref.child("SongsV3").childByAutoId()
         self.voters = [self.user : "up"]
         
         self.reference.child("url").setValue(self.url)
@@ -164,7 +164,6 @@ class song {
             
         
 }
-
 
 class dbSong{
     let url: String

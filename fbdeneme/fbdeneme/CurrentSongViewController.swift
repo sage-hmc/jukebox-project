@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-
+import MediaPlayer
 /*
     This class is the view controller of the current song screen
     So, this class is responsible for playing and stopping the song
@@ -22,6 +22,7 @@ import AVFoundation
 
 class CurrentSongViewController: UIViewController {
     
+    var musicPlayer = MPMusicPlayerController.systemMusicPlayer
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var songArtist: UILabel!
     @IBOutlet weak var songAlbum: UILabel!
@@ -37,23 +38,17 @@ class CurrentSongViewController: UIViewController {
         songTitle.text = songs[myIndex].info["title"]
         songArtist.text = songs[myIndex].info["artist"]
         songAlbum.text = songs[myIndex].info["album"]
-        
-        if let url = URL(string: songs[myIndex].info["imageurl"] ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/12in-Vinyl-LP-Record-Angle.jpg/440px-12in-Vinyl-LP-Record-Angle.jpg") {
-            songCover.contentMode = .scaleAspectFit
-            downloadImage(from: url)
-        }
-        
-       // if let url = URL(string: songs[0].url) {
-       //     downloadFile(url)
-       //     print("audio downloaded?")
-       // }
+
+        songCover.contentMode = .scaleAspectFit
+        let size = CGSize(width: 100, height: 100)
+        self.songCover.image = musicPlayer.nowPlayingItem?.artwork?.image(at: size)
         
         PopupView.layer.cornerRadius = 8.0
         PopupView.backgroundColor = UIColor(red:0.92, green:0.92, blue:0.92, alpha:1.0)
         
     }
     
-    // This function and getData below this download an image
+    // This function and getData below this download an image and is not used
     // They are used to fisplay the album cover.
     func downloadImage(from url: URL) {
         print("Download Started")
@@ -77,31 +72,83 @@ class CurrentSongViewController: UIViewController {
     // The audio file is download at the original view controller
     
     @IBAction func PlayButtonPressed(_ sender: UIButton) {
-        // Create the local filepath that the song is supposed to exist in
-        let webUrl = URL.init(string: songs[myIndex].url)
-        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let path = url.appendingPathComponent(webUrl!.lastPathComponent)
-        // If the file is not there don't do anything
-        if !FileManager.default.fileExists(atPath: path.path){
-            return
+        print("Title: " , songs[myIndex].info["title"]!)
+        
+        MPMediaLibrary.requestAuthorization { (status) in
+            if status == .authorized {
+                DispatchQueue.main.async {
+                    self.playSong(title: songs[myIndex].info["title"]!)
+                }
+            }
+            else{
+                print("Could not play. Not authorized")
+            }
         }
-        // If it is there but the player was not initialized, init.
-        if player == nil{
-            player = AVPlayer.init(url: path)
+        //adfa
+    }
+    
+    func playSong(title: String){
+        print("Playing song...")
+        if musicPlayer.nowPlayingItem?.title != title{
+            let query = MPMediaQuery()
+            let predicate = MPMediaPropertyPredicate(value: title, forProperty: MPMediaItemPropertyTitle)
+            query.addFilterPredicate(predicate)
+            
+            musicPlayer.setQueue(with: query)
+            print("This is the query: ",query)
+            print("query.items: " , query.items!)
+            print("End of query.")
         }
         
-        // Then play
-        player.play()
+        //trial begin
+//        let myPlaylistQuery = MPMediaQuery.playlists()
+//        let playlists = myPlaylistQuery.collections
+//        for playlist in playlists! {
+//            print(playlist.value(forProperty: MPMediaPlaylistPropertyName)!)
+//
+//            let songs1 = playlist.items
+//            for song in songs1 {
+//                let songTitle = song.value(forProperty: MPMediaItemPropertyTitle)
+//                print("\t\t", songTitle!)
+//            }
+//        }
+        //trial end
+        musicPlayer.play()
+        print("played")
+        print("calling setPlaylist")
+        setPlaylist()
+        print("finished setPlaylist")
+        musicPlayer.play()
     }
     
     // Pause is simple
     @IBAction func PausePressed(_ sender: UIButton) {
-        if player != nil {
-            player.pause()
+        musicPlayer.pause()
+    }
+    func setPlaylist(){
+
+        print("in setPlaylist")
+        var query = MPMediaQuery()
+        var predicate = MPMediaPropertyPredicate(value: songs[0].info["title"], forProperty: MPMediaItemPropertyTitle)
+        query.addFilterPredicate(predicate)
+        print("AAA")
+        print("Query.items!", query.items!)
+        var playlist = query.items!
+        
+        print("BBB")
+        for song in songs{
+            query = MPMediaQuery()
+            predicate = MPMediaPropertyPredicate(value: song.info["title"], forProperty: MPMediaItemPropertyTitle)
+            query.addFilterPredicate(predicate)
+            if song !== songs[0]{
+                playlist = playlist + query.items!
+            }
         }
+        print("Playlist: " , playlist)
+        var collection = MPMediaItemCollection(items: playlist)
+        musicPlayer.setQueue(with: collection)
         
     }
-    
 
     /*
     // MARK: - Navigation
