@@ -179,11 +179,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let upvote = UIContextualAction(style: .normal, title: "Upvote") { (action, view, done) in
             //songs[indexPath.row].upvotescore += 1;
-            songs[indexPath.row].updateScore(upvote: true)
+            songs[indexPath.row].updateScore(upvote: true, cl: self)
             self.refreshData()
             done(true)
         }
         return UISwipeActionsConfiguration(actions: [upvote])
+    }
+    // A pop-up screen if song is voted up twice in the queue
+    func doubleVoteUp() {
+        let alert = UIAlertController(title: "Whoops...", message: "You have already upvoted this song!", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        }
+    // A pop-up screen if song is voted down twice in the queue
+    func doubleVoteDown() {
+        let alert = UIAlertController(title: "Whoops...", message: "You have already downvoted this song!", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     // Implements swipe to downvote. Almost the same as swipe to upvote
@@ -191,13 +207,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let downvote = UIContextualAction(style: .normal, title: "Downvote") { (action, view, done) in
             //print("INDExPAATH", "\(indexPath.row)")
             //songs[indexPath.row].downvotescore += 1;
-            songs[indexPath.row].updateScore(upvote: false)
+            songs[indexPath.row].updateScore(upvote: false, cl: self)
            // print("\(songs[indexPath.row].url)")
             self.refreshData()
             done(true)
         }
         return UISwipeActionsConfiguration(actions: [downvote])
     }
+
     
     // Function for handling song tap for non currently-playing songs
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

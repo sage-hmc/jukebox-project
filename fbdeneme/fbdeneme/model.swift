@@ -100,7 +100,7 @@ class song {
     
     // This updates the score in firebase.
     // If upvote is true, score += 1, and score -= 1 otherwise
-    func updateScore(upvote: Bool){
+    func updateScore(upvote: Bool, cl: ViewController){
         reference.observeSingleEvent(of: .value) { (snapshot) in
             //print("Here comes sc's")
             guard
@@ -121,7 +121,16 @@ class song {
                     self.downvotescore+=1
                     self.upvotescore-=1
                     
-                } // If the user previously downvoted the song and then upvotes the song
+                }
+                // if the user votes up twice, a pop-up is displayed
+                else if(val == "up" && upvote) {
+                   cl.doubleVoteUp()
+                }
+                // if the user votes down twice, a pop-up is displayed
+                else if(val == "down" && !upvote) {
+                    cl.doubleVoteDown()
+                }
+                // If the user previously downvoted the song and then upvotes the song
                 else if(val == "down" && upvote){
                     dict[SharedStuff.shared.user!] = "up"
                     down -= 1

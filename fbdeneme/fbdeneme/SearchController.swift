@@ -50,7 +50,7 @@ class SearchController: UIViewController, UITableViewDelegate, UITableViewDataSo
         // Before you add song, make sure it is not already in Queue.
         for song in songs {
             if (song.info["title"] == curSong.info["title"]){
-                let alert = UIAlertController(title: "Alert", message: "Message", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Already queued!", message: "The song will play shortly.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 
