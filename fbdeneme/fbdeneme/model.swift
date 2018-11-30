@@ -74,6 +74,7 @@ class song {
         self.reference.child("voters").setValue(self.voters)
     }
     
+    
     // This takes the firebase data and creates a local song from it
     // Used to populate the array from firebase.
     init?(snapshot: DataSnapshot) {
@@ -166,8 +167,8 @@ class song {
 }
 
 class dbSong{
-    let url: String
-    let info: [String:String]
+    var url: String
+    var info: [String:String]
     
     init?(snapshot: DataSnapshot) {
         guard
@@ -181,6 +182,22 @@ class dbSong{
         self.url = url
         self.info = info
     }
+    init?(_ url:String,_ album: String,_ title: String,_ artist: String,_ imageurl: String) {
+        self.info = [String:String]()
+        self.url = url
+        self.info["album"] = album
+        self.info["title"] = title
+        self.info["artist"] = artist
+        self.info["imageurl"] = imageurl
+    }
+}
+
+// Add a song from scratch by first creating a dbsong and creating an actual song
+// dbsong is not saved but the newsong goes to firebase.
+func addSongV3(url:String, album: String, title: String, artist: String, imageurl: String){
+    let dbs = dbSong(url, album, title, artist, imageurl)
+    let newSong = song(db: dbs!)
+    songs.append(newSong)
 }
 
 
