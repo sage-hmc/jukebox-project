@@ -238,11 +238,11 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YK4-85-7k6">
-                                            <rect key="frame" x="29" y="471" width="86" height="56"/>
+                                            <rect key="frame" x="15" y="471" width="86" height="56"/>
                                             <color key="backgroundColor" red="1" green="0.82273071330000003" blue="0.59193807099999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="56" id="4kh-Ff-KUJ"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="86" id="emE-Zk-rBp"/>
+                                                <constraint firstAttribute="height" constant="56" id="JzA-9w-uI7"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="86" id="cIE-kF-rlp"/>
                                             </constraints>
                                             <state key="normal" title="PLAY"/>
                                             <connections>
@@ -250,15 +250,23 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urJ-b0-Hqt">
-                                            <rect key="frame" x="183" y="471" width="86" height="56"/>
+                                            <rect key="frame" x="109" y="471" width="86" height="56"/>
                                             <color key="backgroundColor" red="1" green="0.82273071330000003" blue="0.59193807099999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="56" id="Rgz-qq-Zjb"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="86" id="aBY-Pu-X4J"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="86" id="fth-YD-Hzs"/>
                                             </constraints>
                                             <state key="normal" title="PAUSE"/>
                                             <connections>
                                                 <action selector="PausePressed:" destination="dlv-aX-3kl" eventType="touchUpInside" id="0g8-jl-igy"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t94-5Q-ezo">
+                                            <rect key="frame" x="204" y="471" width="86" height="56"/>
+                                            <color key="backgroundColor" red="1" green="0.82273071330000003" blue="0.59193807099999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <state key="normal" title="&gt;&gt;"/>
+                                            <connections>
+                                                <action selector="PausePressed:" destination="dlv-aX-3kl" eventType="touchUpInside" id="rro-P5-9km"/>
+                                                <action selector="skipPressed:" destination="dlv-aX-3kl" eventType="touchUpInside" id="Rlz-y2-Yij"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -267,24 +275,28 @@
                                         <constraint firstItem="tP4-SG-E4r" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4yK-qi-K5R" secondAttribute="trailing" id="27b-fX-EP6"/>
                                         <constraint firstItem="4yK-qi-K5R" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ZIT-8w-apT" secondAttribute="leading" id="4K6-yZ-eLz"/>
                                         <constraint firstItem="z28-Ig-0Lw" firstAttribute="top" secondItem="ZIT-8w-apT" secondAttribute="bottom" constant="47" id="4Tx-8z-LPh"/>
+                                        <constraint firstItem="urJ-b0-Hqt" firstAttribute="top" secondItem="t94-5Q-ezo" secondAttribute="top" id="8mC-Gc-7nx"/>
                                         <constraint firstItem="tP4-SG-E4r" firstAttribute="top" secondItem="7sO-E3-Yd5" secondAttribute="top" constant="36" id="8qR-z9-z5m"/>
+                                        <constraint firstItem="t94-5Q-ezo" firstAttribute="trailing" secondItem="7sO-E3-Yd5" secondAttribute="trailingMargin" id="AdZ-NO-WVU"/>
                                         <constraint firstItem="tP4-SG-E4r" firstAttribute="centerX" secondItem="7sO-E3-Yd5" secondAttribute="centerX" id="Cw6-GW-F2b"/>
+                                        <constraint firstItem="YK4-85-7k6" firstAttribute="baseline" secondItem="urJ-b0-Hqt" secondAttribute="firstBaseline" id="EJG-PY-kZU"/>
                                         <constraint firstItem="ZIT-8w-apT" firstAttribute="top" secondItem="4yK-qi-K5R" secondAttribute="bottom" constant="8" symbolic="YES" id="EYf-Gm-qay"/>
-                                        <constraint firstAttribute="bottom" secondItem="urJ-b0-Hqt" secondAttribute="bottom" constant="33" id="GF7-3g-cuZ"/>
-                                        <constraint firstItem="YK4-85-7k6" firstAttribute="top" secondItem="z28-Ig-0Lw" secondAttribute="bottom" constant="29" id="JQ9-Fa-7Da"/>
                                         <constraint firstItem="4yK-qi-K5R" firstAttribute="top" secondItem="tP4-SG-E4r" secondAttribute="bottom" constant="8" symbolic="YES" id="Jgg-Iu-oaI"/>
+                                        <constraint firstItem="YK4-85-7k6" firstAttribute="leading" secondItem="7sO-E3-Yd5" secondAttribute="leading" constant="15" id="KM7-aW-QrY"/>
                                         <constraint firstItem="z28-Ig-0Lw" firstAttribute="leading" secondItem="7sO-E3-Yd5" secondAttribute="leading" constant="29" id="LYR-QQ-wRi"/>
                                         <constraint firstItem="ZIT-8w-apT" firstAttribute="leading" secondItem="4yK-qi-K5R" secondAttribute="leading" id="QxX-E0-AeO"/>
-                                        <constraint firstItem="urJ-b0-Hqt" firstAttribute="top" secondItem="z28-Ig-0Lw" secondAttribute="bottom" constant="29" id="TgJ-oZ-l2a"/>
                                         <constraint firstItem="4yK-qi-K5R" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZIT-8w-apT" secondAttribute="trailing" id="WQN-2q-QTr"/>
-                                        <constraint firstItem="YK4-85-7k6" firstAttribute="leading" secondItem="z28-Ig-0Lw" secondAttribute="leading" id="XWN-y4-frK"/>
-                                        <constraint firstAttribute="bottom" secondItem="YK4-85-7k6" secondAttribute="bottom" constant="33" id="Xoi-26-ZyU"/>
                                         <constraint firstItem="ZIT-8w-apT" firstAttribute="centerX" secondItem="z28-Ig-0Lw" secondAttribute="centerX" id="fPs-P2-mK9"/>
+                                        <constraint firstItem="urJ-b0-Hqt" firstAttribute="leading" secondItem="YK4-85-7k6" secondAttribute="trailing" constant="8" symbolic="YES" id="jKJ-2L-elB"/>
+                                        <constraint firstItem="urJ-b0-Hqt" firstAttribute="baseline" secondItem="t94-5Q-ezo" secondAttribute="firstBaseline" id="jr7-bD-Qbv"/>
                                         <constraint firstItem="tP4-SG-E4r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7sO-E3-Yd5" secondAttribute="leading" id="lVD-Ne-hNo"/>
                                         <constraint firstItem="ZIT-8w-apT" firstAttribute="leading" secondItem="7sO-E3-Yd5" secondAttribute="leading" constant="86" id="mcf-wx-P2f"/>
-                                        <constraint firstItem="urJ-b0-Hqt" firstAttribute="trailing" secondItem="z28-Ig-0Lw" secondAttribute="trailing" id="nt8-4Q-Sqd"/>
+                                        <constraint firstItem="YK4-85-7k6" firstAttribute="top" secondItem="urJ-b0-Hqt" secondAttribute="top" id="qJu-Yh-IKZ"/>
+                                        <constraint firstItem="YK4-85-7k6" firstAttribute="top" secondItem="z28-Ig-0Lw" secondAttribute="bottom" constant="29" id="tuL-37-UYg"/>
+                                        <constraint firstItem="t94-5Q-ezo" firstAttribute="leading" secondItem="urJ-b0-Hqt" secondAttribute="trailing" constant="9" id="wwi-mt-Kwo"/>
                                         <constraint firstItem="tP4-SG-E4r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4yK-qi-K5R" secondAttribute="leading" id="x0n-Vu-E5N"/>
                                         <constraint firstItem="ZIT-8w-apT" firstAttribute="centerX" secondItem="tP4-SG-E4r" secondAttribute="centerX" id="xQA-6p-N2j"/>
+                                        <constraint firstAttribute="bottom" secondItem="YK4-85-7k6" secondAttribute="bottom" constant="33" id="yfl-7g-Orc"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -465,6 +477,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="xoJ-Zo-KR8"/>
+        <segue reference="nDt-ki-uAg"/>
     </inferredMetricsTieBreakers>
 </document>

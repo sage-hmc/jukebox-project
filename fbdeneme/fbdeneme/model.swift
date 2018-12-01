@@ -41,7 +41,18 @@ class SharedStuff{
  */
 
 func sortByScore(){
+    
+    if songs.count == 0 {
+        return
+    }
+    
+    let topSong = songs[0]
+    
+    songs.remove(at: 0)
+    
     songs = songs.sorted(by: { ($0.upvotescore - $0.downvotescore) > ($1.upvotescore - $1.downvotescore)})
+    
+    songs.insert(topSong, at: 0)
     
 }
 

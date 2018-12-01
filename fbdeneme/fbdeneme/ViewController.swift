@@ -11,6 +11,8 @@ import Firebase
 
 var myIndex = 0
 
+var currentlyPlayingTitle: String?
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var table: UITableView!
@@ -177,6 +179,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Implements swipe to upvote by updating the local song and calling
     // the updatescore function in the model
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if (indexPath.row == 0) {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
         let upvote = UIContextualAction(style: .normal, title: "Upvote") { (action, view, done) in
             //songs[indexPath.row].upvotescore += 1;
             songs[indexPath.row].updateScore(upvote: true)
@@ -188,6 +195,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Implements swipe to downvote. Almost the same as swipe to upvote
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if (indexPath.row == 0) {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
         let downvote = UIContextualAction(style: .normal, title: "Downvote") { (action, view, done) in
             //print("INDExPAATH", "\(indexPath.row)")
             //songs[indexPath.row].downvotescore += 1;

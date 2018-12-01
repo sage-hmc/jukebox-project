@@ -76,7 +76,7 @@ class CurrentSongViewController: UIViewController {
     // The song is only played when the file finishes downloading
     // The audio file is download at the original view controller
     
-    @IBAction func PlayButtonPressed(_ sender: UIButton) {
+    @IBAction func PlayButtonPressed(_ sender: UIButton?) {
         // Create the local filepath that the song is supposed to exist in
         let webUrl = URL.init(string: songs[myIndex].url)
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -95,14 +95,42 @@ class CurrentSongViewController: UIViewController {
     }
     
     // Pause is simple
-    @IBAction func PausePressed(_ sender: UIButton) {
+    @IBAction func PausePressed(_ sender: UIButton?) {
         if player != nil {
             player.pause()
         }
         
     }
     
-
+    @IBAction func skipPressed(_ sender: UIButton?) {
+        
+        var wasPlaying = 0
+        
+        // Step 0: pull firebase TODO!
+        
+        
+        // Step 1: pause current song
+        if player != nil {
+            wasPlaying = 1
+            player.pause()
+        }
+        
+        // Step 2: remove currentlyPlayingSong from local array
+        songs.remove(at: 0)
+        
+        // Step 3: repopulate currentlyPlayingSong from table
+        currentlyPlayingTitle = songs[0].info["title"]
+        
+        // Step 4: optionally play new song
+        if (wasPlaying == 1) {
+            PlayButtonPressed(nil)
+        }
+        
+        // Step 5: update firebase
+        
+        
+    }
+    
     /*
     // MARK: - Navigation
 
