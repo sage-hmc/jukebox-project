@@ -107,7 +107,7 @@ class CurrentSongViewController: UIViewController {
         var wasPlaying = 0
         
         // Step 0: pull firebase TODO!
-        
+        refreshModel()
         
         // Step 1: pause current song
         if player != nil {
@@ -115,10 +115,16 @@ class CurrentSongViewController: UIViewController {
             player.pause()
         }
         
-        // Step 2: remove currentlyPlayingSong from local array
+        // Step 2: remove currentlyPlayingSong from firebase and local array
+        removeSong(songs[0])
         songs.remove(at: 0)
         
         // Step 3: repopulate currentlyPlayingSong from table
+        
+       // let topSong = songs.max { ($0.upvotescore - $0.downvotescore) > ($1.upvotescore - $1.downvotescore)}
+        //for item in songs {
+            
+        //}
         currentlyPlayingTitle = songs[0].info["title"]
         
         // Step 4: optionally play new song
@@ -126,7 +132,7 @@ class CurrentSongViewController: UIViewController {
             PlayButtonPressed(nil)
         }
         
-        // Step 5: update firebase
+       
         
         
     }

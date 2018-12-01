@@ -195,4 +195,24 @@ class dbSong{
     }
 }
 
+func removeSong(_ songToRemove: song){
+    songToRemove.reference.removeValue()
+}
+
+func refreshModel(){
+    
+    let db = Database.database().reference().child("Songsv2")
+    db.observeSingleEvent(of: .value, with: {(snapshot) in
+        // This might not scale well. Maybe implement a more legit update?
+        songs.removeAll()
+        for child in snapshot.children {
+            let a = child as! DataSnapshot
+            songs.append(song(snapshot: a)!)
+            //print(songs[songs.count-1].url)
+        }
+        sortByScore()
+
+    })
+    
+}
 

@@ -94,20 +94,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // This function completely refreshes the data by pulling all the songs again
     // and populating the songs array in the model (model.swift)
     @objc func refreshData(){
-        
-        let db = Database.database().reference().child("Songsv2")
-        db.observeSingleEvent(of: .value, with: {(snapshot) in
-            // This might not scale well. Maybe implement a more legit update?
-            songs.removeAll()
-            for child in snapshot.children {
-                let a = child as! DataSnapshot
-                songs.append(song(snapshot: a)!)
-                //print(songs[songs.count-1].url)
-            }
-            sortByScore()
-            self.table.reloadData()
-            
-        })
+        refreshModel()
+        self.table.reloadData()
         refresh.endRefreshing()
     }
     
