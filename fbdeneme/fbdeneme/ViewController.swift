@@ -20,7 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         //Get the song database. This will be different when a music linrary is added
         getSongs()
         
@@ -33,7 +33,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Make the pull ot refresh functionality work
         refresh.addTarget(self, action: #selector(ViewController.refreshData), for: .valueChanged)
     }
-    
     
     func getSongs(){
         let db = SharedStuff.shared.ref.child("Song Database")
