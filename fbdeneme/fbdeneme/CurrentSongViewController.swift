@@ -90,8 +90,15 @@ class CurrentSongViewController: UIViewController {
             player = AVPlayer.init(url: path)
         }
         
+        // Setup listener for end of song
+        NotificationCenter.default.addObserver(self, selector: "playerDidFinishPlaying:", name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        
         // Then play
         player.play()
+    }
+    
+    func playerDidFinishPlaying(note: NSNotification) {
+        skipPressed(nil)
     }
     
     // Pause is simple
