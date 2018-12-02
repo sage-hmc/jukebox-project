@@ -128,10 +128,7 @@ class CurrentSongViewController: UIViewController {
         
         // Step 3: repopulate currentlyPlayingSong from table
         
-       // let topSong = songs.max { ($0.upvotescore - $0.downvotescore) > ($1.upvotescore - $1.downvotescore)}
-        //for item in songs {
-            
-        //}
+        SharedStuff.shared.ref.child("curtitle").setValue(songs[0].info["title"])
         currentlyPlayingTitle = songs[0].info["title"]
         
         // Step 4: optionally play new song
