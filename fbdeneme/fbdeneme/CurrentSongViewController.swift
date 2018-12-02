@@ -20,8 +20,12 @@ import AVFoundation
  
  */
 
+var isPlaying = 0
+
 class CurrentSongViewController: UIViewController {
     
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var songArtist: UILabel!
     @IBOutlet weak var songAlbum: UILabel!
@@ -32,6 +36,10 @@ class CurrentSongViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        renderPauseButton()
+        renderPlayButton()
+        renderControls()
         
         // Display the song info
         songTitle.text = songs[myIndex].info["title"]
@@ -50,6 +58,26 @@ class CurrentSongViewController: UIViewController {
         
         PopupView.layer.cornerRadius = 8.0
         PopupView.backgroundColor = UIColor(red:0.92, green:0.92, blue:0.92, alpha:1.0)
+        
+    }
+    
+    func renderControls() {
+        
+        if (isPlaying == 1){
+            PopupView.bringSubviewToFront(pauseButton)
+            
+        } else {
+            PopupView.bringSubviewToFront(playButton)
+        }
+    }
+    
+    func renderPauseButton() {
+    pauseButton.setBackgroundImage(UIImage(named:"pauseButton"), for: .normal)
+        
+    }
+    
+    func renderPlayButton() {
+    playButton.setBackgroundImage(UIImage(named:"playButton"), for: .normal)
         
     }
     
@@ -90,8 +118,11 @@ class CurrentSongViewController: UIViewController {
             player = AVPlayer.init(url: path)
         }
         
-        // Setup listener for end of song
+        // Setup listener for end of song TODO: make sure this works once skip function works
         NotificationCenter.default.addObserver(self, selector: "playerDidFinishPlaying:", name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+    
+        isPlaying = 1
+        renderControls()
         
         // Then play
         player.play()
@@ -106,6 +137,9 @@ class CurrentSongViewController: UIViewController {
         if player != nil {
             player.pause()
         }
+        
+        isPlaying = 0
+        renderControls()
         
     }
     

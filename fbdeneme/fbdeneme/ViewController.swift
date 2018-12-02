@@ -15,6 +15,7 @@ var currentlyPlayingTitle: String?
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var addSongButton: UIButton!
     @IBOutlet weak var table: UITableView!
     var refresh : UIRefreshControl = UIRefreshControl()
     
@@ -24,6 +25,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //Get the song database. This will be different when a music linrary is added
         getSongs()
         
+        renderAddSongButton()
+        
         // Refresh the data in the table
         table.refreshControl = refresh
         refreshData()
@@ -32,6 +35,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         downloadSong()
         // Make the pull ot refresh functionality work
         refresh.addTarget(self, action: #selector(ViewController.refreshData), for: .valueChanged)
+    }
+    
+    func renderAddSongButton() {
+
+        addSongButton.frame = CGRect( x: view.bounds.maxX - 100, y: view.bounds.maxY - 100, width: 75, height: 75 )
+
+        addSongButton.setBackgroundImage(UIImage(named:"addSongButton"), for: .normal)
+
     }
     
     func getSongs(){
