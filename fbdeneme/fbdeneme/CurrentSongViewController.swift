@@ -24,6 +24,7 @@ var isPlaying = 0
 
 class CurrentSongViewController: UIViewController {
     
+    @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var pauseButton: UIButton!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var songTitle: UILabel!
@@ -39,6 +40,7 @@ class CurrentSongViewController: UIViewController {
         
         renderPauseButton()
         renderPlayButton()
+        renderSkipButton()
         renderControls()
         
         // Display the song info
@@ -69,6 +71,10 @@ class CurrentSongViewController: UIViewController {
         } else {
             PopupView.bringSubviewToFront(playButton)
         }
+    }
+    
+    func renderSkipButton() {
+        skipButton.setBackgroundImage(UIImage(named:"skipButton"), for: .normal)
     }
     
     func renderPauseButton() {

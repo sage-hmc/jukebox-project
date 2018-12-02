@@ -27,7 +27,7 @@ class SongInfoViewController: UIViewController {
         songArtist.text = songs[myIndex].info["artist"]
         songAlbum.text = songs[myIndex].info["album"]
         
-        QueuerLabel.text = songs[myIndex].user
+        QueuerLabel.text = "Queuer: " + songs[myIndex].user
         
         if let url = URL(string: songs[myIndex].info["imageurl"] ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/12in-Vinyl-LP-Record-Angle.jpg/440px-12in-Vinyl-LP-Record-Angle.jpg") {
             songCover.contentMode = .scaleAspectFit
@@ -35,7 +35,7 @@ class SongInfoViewController: UIViewController {
         }
         
         let totalscore = songs[myIndex].upvotescore - songs[myIndex].downvotescore
-        SongScoreLabel.text = "\(totalscore)"
+        SongScoreLabel.text = "Score: " + "\(totalscore)"
         
         // Made the styling for the background view programatic so NOTE that its styling does not show up on the storyboard.
         PopupView.layer.cornerRadius = 8.0
