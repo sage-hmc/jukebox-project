@@ -104,22 +104,34 @@ class CurrentSongViewController: UIViewController {
     // The song is only played when the file finishes downloading
     // The audio file is download at the original view controller
     
-    @IBAction func PlayButtonPressed(_ sender: UIButton?) {
+    func getUrl() -> URL {
         // Create the local filepath that the song is supposed to exist in
-        let webUrl = URL.init(string: songs[myIndex].url)
+        let webUrl = URL.init(string: songs[0].url)
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let path = url.appendingPathComponent(webUrl!.lastPathComponent)
+        return path
+    }
+
+    
+    @IBAction func PlayButtonPressed(_ sender: UIButton?) {
+
+        let path = getUrl()
         // If the file is not there don't do anything
         if !FileManager.default.fileExists(atPath: path.path){
             return
         }
         // If it is there but the player was not initialized, init.
         if player == nil{
+            print(path.absoluteString)
             player = AVPlayer.init(url: path)
+            NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
         }
-        
-        // Setup listener for end of song TODO: make sure this works once skip function works
-        NotificationCenter.default.addObserver(self, selector: "playerDidFinishPlaying:", name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        if isPlaying == 1{
+            player.pause()
+            print("this" + path.absoluteString)
+            player.replaceCurrentItem(with: AVPlayerItem.init(url:path))
+            NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        }
     
         isPlaying = 1
         renderControls()
@@ -128,7 +140,7 @@ class CurrentSongViewController: UIViewController {
         player.play()
     }
     
-    func playerDidFinishPlaying(note: NSNotification) {
+    @objc func playerDidFinishPlaying(note: NSNotification) {
         skipPressed(nil)
     }
     
@@ -151,9 +163,12 @@ class CurrentSongViewController: UIViewController {
         refreshModel()
         
         // Step 1: pause current song
-        if player != nil {
+       // if player != nil {
+         //   wasPlaying = 1
+          //  player.pause()
+        //}
+        if isPlaying == 1 {
             wasPlaying = 1
-            player.pause()
         }
         
         // Step 2: remove currentlyPlayingSong from firebase and local array
@@ -166,9 +181,11 @@ class CurrentSongViewController: UIViewController {
         currentlyPlayingTitle = songs[0].info["title"]
         
         // Step 4: optionally play new song
-        if (wasPlaying == 1) {
+        //if (wasPlaying == 1) {
+            print("end of skip")
+            isPlaying = 1
             PlayButtonPressed(nil)
-        }
+        //}
         
        
         

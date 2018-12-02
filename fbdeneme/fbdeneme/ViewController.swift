@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         refreshData()
         
         // Download the first song here
-        downloadSong()
+        downloadAllSongs()
         // Make the pull ot refresh functionality work
         refresh.addTarget(self, action: #selector(ViewController.refreshData), for: .valueChanged)
     }
@@ -61,43 +61,47 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // This function downloads the first song in the queue
     // if it was not downloaded already.
     // mostly taken from a tutorial
-    func downloadSong(){
+    func downloadAllSongs(){
         if(songs.count == 0){
             return
         }
-        // error checking?
-        let audioUrl =  URL(string: songs[0].url)!
-        
-        // this gets the local documents folder
-        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
-        // You can use the pront statements to find the file if you are
-        // using a simulator
-        print(documentsDirectoryURL)
-        
-        // Now create the file path by appending the string after the last slash
-        // in the otiginal song url
-        let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
-        print(destinationUrl)
-        
-        // If the file exists don't download
-        if FileManager.default.fileExists(atPath: destinationUrl.path) {
-            print("The file already exists at path")
+        for curr in songs {
             
-        // If the file doesn't exist
-        } else {
+            // error checking?
+            let audioUrl =  URL(string: curr.url)!
+            print(audioUrl)
             
-            // this part downloads the data
-            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
-                guard let location = location, error == nil else { return }
-                do {
-                    // after downloading your file you need to move it to your destination url
-                    try FileManager.default.moveItem(at: location, to: destinationUrl)
-                    print("File moved to documents folder")
-                } catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            }).resume()
+            // this gets the local documents folder
+            let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            
+            // You can use the pront statements to find the file if you are
+            // using a simulator
+            print(documentsDirectoryURL)
+            
+            // Now create the file path by appending the string after the last slash
+            // in the otiginal song url
+            let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
+            print(destinationUrl)
+            
+            // If the file exists don't download
+            if FileManager.default.fileExists(atPath: destinationUrl.path) {
+                print("The file already exists at path")
+                
+            // If the file doesn't exist
+            } else {
+                
+                // this part downloads the data
+                URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
+                    guard let location = location, error == nil else { return }
+                    do {
+                        // after downloading your file you need to move it to your destination url
+                        try FileManager.default.moveItem(at: location, to: destinationUrl)
+                        print("File moved to documents folder")
+                    } catch let error as NSError {
+                        print(error.localizedDescription)
+                    }
+                }).resume()
+            }
         }
     }
 
