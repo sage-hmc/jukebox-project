@@ -20,8 +20,13 @@ import AVFoundation
  
  */
 
+var isPlaying = 0
+
 class CurrentSongViewController: UIViewController {
     
+    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var songArtist: UILabel!
     @IBOutlet weak var songAlbum: UILabel!
@@ -32,6 +37,11 @@ class CurrentSongViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        renderPauseButton()
+        renderPlayButton()
+        renderSkipButton()
+        renderControls()
         
         // Display the song info
         songTitle.text = songs[myIndex].info["title"]
@@ -50,6 +60,30 @@ class CurrentSongViewController: UIViewController {
         
         PopupView.layer.cornerRadius = 8.0
         PopupView.backgroundColor = UIColor(red:0.92, green:0.92, blue:0.92, alpha:1.0)
+        
+    }
+    
+    func renderControls() {
+        
+        if (isPlaying == 1){
+            PopupView.bringSubviewToFront(pauseButton)
+            
+        } else {
+            PopupView.bringSubviewToFront(playButton)
+        }
+    }
+    
+    func renderSkipButton() {
+        skipButton.setBackgroundImage(UIImage(named:"skipButton"), for: .normal)
+    }
+    
+    func renderPauseButton() {
+    pauseButton.setBackgroundImage(UIImage(named:"pauseButton"), for: .normal)
+        
+    }
+    
+    func renderPlayButton() {
+    playButton.setBackgroundImage(UIImage(named:"playButton"), for: .normal)
         
     }
     
@@ -76,33 +110,94 @@ class CurrentSongViewController: UIViewController {
     // The song is only played when the file finishes downloading
     // The audio file is download at the original view controller
     
-    @IBAction func PlayButtonPressed(_ sender: UIButton) {
+    func getUrl() -> URL {
         // Create the local filepath that the song is supposed to exist in
-        let webUrl = URL.init(string: songs[myIndex].url)
+        let webUrl = URL.init(string: songs[0].url)
         let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let path = url.appendingPathComponent(webUrl!.lastPathComponent)
+        return path
+    }
+
+    
+    @IBAction func PlayButtonPressed(_ sender: UIButton?) {
+
+        let path = getUrl()
         // If the file is not there don't do anything
         if !FileManager.default.fileExists(atPath: path.path){
             return
         }
         // If it is there but the player was not initialized, init.
         if player == nil{
+            print(path.absoluteString)
             player = AVPlayer.init(url: path)
+            NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
         }
+        if isPlaying == 1{
+            player.pause()
+            print("this" + path.absoluteString)
+            player.replaceCurrentItem(with: AVPlayerItem.init(url:path))
+            NotificationCenter.default.addObserver(self, selector: #selector(playerDidFinishPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+        }
+    
+        isPlaying = 1
+        renderControls()
         
         // Then play
         player.play()
     }
     
+    @objc func playerDidFinishPlaying(note: NSNotification) {
+        skipPressed(nil)
+    }
+    
     // Pause is simple
-    @IBAction func PausePressed(_ sender: UIButton) {
+    @IBAction func PausePressed(_ sender: UIButton?) {
         if player != nil {
             player.pause()
         }
         
+        isPlaying = 0
+        renderControls()
+        
     }
     
-
+    @IBAction func skipPressed(_ sender: UIButton?) {
+        
+        if ( songs.count <= 1){
+        
+            var wasPlaying = 0
+            
+            // Step 0: pull firebase TODO!
+            refreshModel()
+            
+            // Step 1: pause current song
+           // if player != nil {
+             //   wasPlaying = 1
+              //  player.pause()
+            //}
+            if isPlaying == 1 {
+                wasPlaying = 1
+            }
+            
+            // Step 2: remove currentlyPlayingSong from firebase and local array
+            removeSong(songs[0])
+            songs.remove(at: 0)
+            
+            // Step 3: repopulate currentlyPlayingSong from table
+            
+            SharedStuff.shared.ref.child("curtitle").setValue(songs[0].info["title"])
+            currentlyPlayingTitle = songs[0].info["title"]
+            
+            // Step 4: optionally play new song
+            //if (wasPlaying == 1) {
+                print("end of skip")
+                isPlaying = 1
+                PlayButtonPressed(nil)
+            //}
+        }
+        
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -113,4 +208,3 @@ class CurrentSongViewController: UIViewController {
     }
     */
 
-}

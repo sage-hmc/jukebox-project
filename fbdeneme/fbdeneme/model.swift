@@ -41,7 +41,22 @@ class SharedStuff{
  */
 
 func sortByScore(){
-    songs = songs.sorted(by: { ($0.upvotescore - $0.downvotescore) > ($1.upvotescore - $1.downvotescore)})
+    
+    if songs.count == 0 {
+        return
+    }
+    
+    if let ind = songs.firstIndex(where: {$0.info["title"] == currentlyPlayingTitle}) {
+        // do something with foo
+
+        songs.swapAt(ind, 0)
+        let topSong = songs[0]
+        songs.remove(at: 0)
+        
+        songs = songs.sorted(by: { ($0.upvotescore - $0.downvotescore) > ($1.upvotescore - $1.downvotescore)})
+        
+        songs.insert(topSong, at: 0)
+    }
     
 }
 
@@ -184,4 +199,36 @@ class dbSong{
     }
 }
 
+func removeSong(_ songToRemove: song){
+    songToRemove.reference.removeValue()
+}
 
+func refreshModel(){
+    
+    let db = Database.database().reference()
+    db.child("curtitle").observeSingleEvent(of: .value) { (snapshot) in
+        currentlyPlayingTitle = snapshot.value as? String
+    }
+    db.child("Songsv2").observeSingleEvent(of: .value, with: {(snapshot) in
+        // This might not scale well. Maybe implement a more legit update?
+        songs.removeAll()
+        for child in snapshot.children {
+            let a = child as! DataSnapshot
+            songs.append(song(snapshot: a)!)
+            print(songs[songs.count-1].url)
+        }
+        print(songs.count-1)
+        sortByScore()
+        print(songs.count-1)
+
+
+    })
+
+    print("end of refersh model")
+    
+}
+
+func addCurrentPlaying(_ title: String){
+    currentlyPlayingTitle = title
+    SharedStuff.shared.ref.child("curtitle").setValue(title)
+}

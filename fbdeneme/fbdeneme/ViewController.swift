@@ -11,27 +11,39 @@ import Firebase
 
 var myIndex = 0
 
+var currentlyPlayingTitle: String?
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var addSongButton: UIButton!
     @IBOutlet weak var table: UITableView!
     var refresh : UIRefreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         //Get the song database. This will be different when a music linrary is added
         getSongs()
+        
+        renderAddSongButton()
         
         // Refresh the data in the table
         table.refreshControl = refresh
         refreshData()
         
         // Download the first song here
-        downloadSong()
+        downloadAllSongs()
         // Make the pull ot refresh functionality work
         refresh.addTarget(self, action: #selector(ViewController.refreshData), for: .valueChanged)
     }
     
+    func renderAddSongButton() {
+
+        addSongButton.frame = CGRect( x: view.bounds.maxX - 100, y: view.bounds.maxY - 100, width: 75, height: 75 )
+
+        addSongButton.setBackgroundImage(UIImage(named:"addSongButton"), for: .normal)
+
+    }
     
     func getSongs(){
         let db = SharedStuff.shared.ref.child("Song Database")
@@ -49,52 +61,58 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // This function downloads the first song in the queue
     // if it was not downloaded already.
     // mostly taken from a tutorial
-    func downloadSong(){
+    func downloadAllSongs(){
         if(songs.count == 0){
             return
         }
-        // error checking?
-        let audioUrl =  URL(string: songs[0].url)!
-        
-        // this gets the local documents folder
-        let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        
-        // You can use the pront statements to find the file if you are
-        // using a simulator
-        print(documentsDirectoryURL)
-        
-        // Now create the file path by appending the string after the last slash
-        // in the otiginal song url
-        let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
-        print(destinationUrl)
-        
-        // If the file exists don't download
-        if FileManager.default.fileExists(atPath: destinationUrl.path) {
-            print("The file already exists at path")
+        for curr in songs {
             
-        // If the file doesn't exist
-        } else {
+            // error checking?
+            let audioUrl =  URL(string: curr.url)!
+            print(audioUrl)
             
-            // this part downloads the data
-            URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
-                guard let location = location, error == nil else { return }
-                do {
-                    // after downloading your file you need to move it to your destination url
-                    try FileManager.default.moveItem(at: location, to: destinationUrl)
-                    print("File moved to documents folder")
-                } catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            }).resume()
+            // this gets the local documents folder
+            let documentsDirectoryURL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            
+            // You can use the pront statements to find the file if you are
+            // using a simulator
+            print(documentsDirectoryURL)
+            
+            // Now create the file path by appending the string after the last slash
+            // in the otiginal song url
+            let destinationUrl = documentsDirectoryURL.appendingPathComponent(audioUrl.lastPathComponent)
+            print(destinationUrl)
+            
+            // If the file exists don't download
+            if FileManager.default.fileExists(atPath: destinationUrl.path) {
+                print("The file already exists at path")
+                
+            // If the file doesn't exist
+            } else {
+                
+                // this part downloads the data
+                URLSession.shared.downloadTask(with: audioUrl, completionHandler: { (location, response, error) -> Void in
+                    guard let location = location, error == nil else { return }
+                    do {
+                        // after downloading your file you need to move it to your destination url
+                        try FileManager.default.moveItem(at: location, to: destinationUrl)
+                        print("File moved to documents folder")
+                    } catch let error as NSError {
+                        print(error.localizedDescription)
+                    }
+                }).resume()
+            }
         }
     }
 
     // This function completely refreshes the data by pulling all the songs again
     // and populating the songs array in the model (model.swift)
     @objc func refreshData(){
-        
-        let db = Database.database().reference().child("Songsv2")
-        db.observeSingleEvent(of: .value, with: {(snapshot) in
+        let db = Database.database().reference()
+        db.child("curtitle").observeSingleEvent(of: .value) { (snapshot) in
+            currentlyPlayingTitle = snapshot.value as? String
+        }
+        db.child("Songsv2").observeSingleEvent(of: .value, with: {(snapshot) in
             // This might not scale well. Maybe implement a more legit update?
             songs.removeAll()
             for child in snapshot.children {
@@ -104,8 +122,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             sortByScore()
             self.table.reloadData()
-            
+   
         })
+        //print(songs[0].info["title"])
+        
+        
         refresh.endRefreshing()
     }
     
@@ -177,6 +198,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // Implements swipe to upvote by updating the local song and calling
     // the updatescore function in the model
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if (indexPath.row == 0) {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
         let upvote = UIContextualAction(style: .normal, title: "Upvote") { (action, view, done) in
             //songs[indexPath.row].upvotescore += 1;
             songs[indexPath.row].updateScore(upvote: true)
@@ -188,6 +214,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // Implements swipe to downvote. Almost the same as swipe to upvote
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if (indexPath.row == 0) {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
         let downvote = UIContextualAction(style: .normal, title: "Downvote") { (action, view, done) in
             //print("INDExPAATH", "\(indexPath.row)")
             //songs[indexPath.row].downvotescore += 1;
