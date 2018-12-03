@@ -21,8 +21,7 @@ import MediaPlayer
  */
 
 class CurrentSongViewController: UIViewController {
-    
-    var musicPlayer = MPMusicPlayerController.systemMusicPlayer
+    var musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var songArtist: UILabel!
     @IBOutlet weak var songAlbum: UILabel!
@@ -30,7 +29,6 @@ class CurrentSongViewController: UIViewController {
     
     @IBOutlet weak var PopupView: UIView!
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +39,8 @@ class CurrentSongViewController: UIViewController {
 
         songCover.contentMode = .scaleAspectFit
         let size = CGSize(width: 100, height: 100)
+        
+        // FIXME
         self.songCover.image = musicPlayer.nowPlayingItem?.artwork?.image(at: size)
         
         PopupView.layer.cornerRadius = 8.0
@@ -95,51 +95,38 @@ class CurrentSongViewController: UIViewController {
             query.addFilterPredicate(predicate)
             
             musicPlayer.setQueue(with: query)
-            print("This is the query: ",query)
-            print("query.items: " , query.items!)
-            print("End of query.")
         }
-        
-        //trial begin
-//        let myPlaylistQuery = MPMediaQuery.playlists()
-//        let playlists = myPlaylistQuery.collections
-//        for playlist in playlists! {
-//            print(playlist.value(forProperty: MPMediaPlaylistPropertyName)!)
-//
-//            let songs1 = playlist.items
-//            for song in songs1 {
-//                let songTitle = song.value(forProperty: MPMediaItemPropertyTitle)
-//                print("\t\t", songTitle!)
-//            }
-//        }
-        //trial end
-        musicPlayer.play()
-        print("played")
         print("calling setPlaylist")
+        //musicPlayer.play()
         setPlaylist()
         print("finished setPlaylist")
         musicPlayer.play()
+        print("musicPlayer.indexOfNowPlayingItem: ",musicPlayer.indexOfNowPlayingItem)
+        
     }
     
     @IBAction func skipPressed(_ sender: Any) {
         musicPlayer.skipToNextItem()
-        setPlaylist()
+        print("musicPlayer.indexOfNowPlayingItem: ",musicPlayer.indexOfNowPlayingItem)
     }
     // Pause is simple
-    @IBAction func pausePressed(_ sender: UIButton) {
-        musicPlayer.pause()
+    @IBAction func pausePressed(_ sender: Any) {
+        print(musicPlayer.playbackState.rawValue)
+        //musicPlayer.stop()
     }
+    @IBAction func populateLibrary(_ sender: Any) {
+        let query = MPMediaQuery()
+        print("query" , query)
+    }
+    
     func setPlaylist(){
-
         print("in setPlaylist")
         var query = MPMediaQuery()
         var predicate = MPMediaPropertyPredicate(value: songs[0].info["title"], forProperty: MPMediaItemPropertyTitle)
         query.addFilterPredicate(predicate)
-        print("AAA")
         print("Query.items!", query.items!)
         var playlist = query.items!
-        
-        print("BBB")
+
         for song in songs{
             query = MPMediaQuery()
             predicate = MPMediaPropertyPredicate(value: song.info["title"], forProperty: MPMediaItemPropertyTitle)
@@ -148,8 +135,19 @@ class CurrentSongViewController: UIViewController {
                 playlist = playlist + query.items!
             }
         }
-        print("Playlist: " , playlist)
-        var collection = MPMediaItemCollection(items: playlist)
+        
+        print("Playlist is ")
+        for song in playlist{
+            let songTitle = song.title
+            print("title: " , songTitle)
+        }
+        
+        let collection = MPMediaItemCollection(items: playlist)
+        print("queue is: ")
+        for song in collection.items {
+            print("song title: ", song.title)
+        }
+        
         musicPlayer.setQueue(with: collection)
         
     }

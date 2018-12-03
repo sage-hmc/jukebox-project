@@ -258,7 +258,7 @@
                                             </constraints>
                                             <state key="normal" title="PAUSE"/>
                                             <connections>
-                                                <action selector="PausePressed:" destination="dlv-aX-3kl" eventType="touchUpInside" id="0g8-jl-igy"/>
+                                                <action selector="pausePressed:" destination="dlv-aX-3kl" eventType="touchUpInside" id="V9k-X5-XZF"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -293,6 +293,14 @@
                                     <state key="normal" title="Skip"/>
                                     <connections>
                                         <action selector="skipPressed:" destination="dlv-aX-3kl" eventType="touchUpInside" id="Jst-hI-saW"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYA-n7-WfP">
+                                    <rect key="frame" x="151" y="245" width="112" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Populate Library"/>
+                                    <connections>
+                                        <action selector="populateLibrary:" destination="dlv-aX-3kl" eventType="touchUpInside" id="wLS-wN-ewm"/>
                                     </connections>
                                 </button>
                             </subviews>
