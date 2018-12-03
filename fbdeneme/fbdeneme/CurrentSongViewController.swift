@@ -163,38 +163,38 @@ class CurrentSongViewController: UIViewController {
     
     @IBAction func skipPressed(_ sender: UIButton?) {
         
-        var wasPlaying = 0
+        if ( songs.count <= 1){
         
-        // Step 0: pull firebase TODO!
-        refreshModel()
-        
-        // Step 1: pause current song
-       // if player != nil {
-         //   wasPlaying = 1
-          //  player.pause()
-        //}
-        if isPlaying == 1 {
-            wasPlaying = 1
+            var wasPlaying = 0
+            
+            // Step 0: pull firebase TODO!
+            refreshModel()
+            
+            // Step 1: pause current song
+           // if player != nil {
+             //   wasPlaying = 1
+              //  player.pause()
+            //}
+            if isPlaying == 1 {
+                wasPlaying = 1
+            }
+            
+            // Step 2: remove currentlyPlayingSong from firebase and local array
+            removeSong(songs[0])
+            songs.remove(at: 0)
+            
+            // Step 3: repopulate currentlyPlayingSong from table
+            
+            SharedStuff.shared.ref.child("curtitle").setValue(songs[0].info["title"])
+            currentlyPlayingTitle = songs[0].info["title"]
+            
+            // Step 4: optionally play new song
+            //if (wasPlaying == 1) {
+                print("end of skip")
+                isPlaying = 1
+                PlayButtonPressed(nil)
+            //}
         }
-        
-        // Step 2: remove currentlyPlayingSong from firebase and local array
-        removeSong(songs[0])
-        songs.remove(at: 0)
-        
-        // Step 3: repopulate currentlyPlayingSong from table
-        
-        SharedStuff.shared.ref.child("curtitle").setValue(songs[0].info["title"])
-        currentlyPlayingTitle = songs[0].info["title"]
-        
-        // Step 4: optionally play new song
-        //if (wasPlaying == 1) {
-            print("end of skip")
-            isPlaying = 1
-            PlayButtonPressed(nil)
-        //}
-        
-       
-        
         
     }
     
@@ -208,4 +208,3 @@ class CurrentSongViewController: UIViewController {
     }
     */
 
-}
